@@ -59,7 +59,23 @@ class PersonTestCases(unittest.TestCase):
         """Create an instance of  the class dojo and pass it all tests in test case
         """
         self.dojo = Dojo()
-        self.person = self.dojo.add_person()
+        self.person = self.dojo.add_person('Salat', 'Abdala', 'fellow')
+
+    def test_if_persons_name_is_correct(self):
+        self.assertEqual(self.person, 'Salat Abdala')
+
+    def test_persons_name_is_not_int(self):
+        self.assertEqual(self.person(100), 'A name can only be a string')
+
+    def test_persons_name_is_not_list(self):
+        self.assertEqual(self.person([]), 'A name can only be a string')
+
+    def test_persons_name_is_not_dict(self):
+        self.assertEqual(self.person({}), 'A name can only be a string')
+
+    def test_persons_name_is_not_set(self):
+        self.assertEqual(self.person(()), 'A name can only be a string')
+
 
 
 if __name__ == "__main__":
