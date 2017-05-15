@@ -2,8 +2,8 @@ import os
 import sys
 import unittest
 from os import path
-sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 from dojo import Dojo
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
 
 class TestsCasesRoom(unittest.TestCase):
