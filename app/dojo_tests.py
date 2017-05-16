@@ -22,15 +22,9 @@ class TestsCasesRoom(unittest.TestCase):
         self.rooms = self.dojo.livingrooms
         self.all_rooms = self.dojo.all_rooms
 
-    def test_room_created_successfully(self):
-        initial_room_count = len(self.dojo.all_rooms)
-        self.office2 = self.dojo.create_room('Valhalla', 'office')
-        new_room_count = len(self.dojo.all_rooms)
-        self.assertEqual(new_room_count - initial_room_count, 1)
-
     def test_office_created_successfully(self):
         initial_room_count = len(self.dojo.offices)
-        self.office2 = self.dojo.create_room('Valhalla', 'office')
+        self.office2 = self.dojo.create_room('Hogwarts', 'office')
         new_room_count = len(self.dojo.offices)
         self.assertEqual(new_room_count - initial_room_count, 1)
 
