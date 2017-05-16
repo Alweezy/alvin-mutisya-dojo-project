@@ -14,42 +14,31 @@ class TestsCasesRoom(unittest.TestCase):
          in the test case.
         """
         self.dojo = Dojo()
-        self.room_type = self.dojo.create_room.room_type
-        self.room_name = self.dojo.create_room.room_name
         self.office1 = self.dojo.create_room('Valhalla', 'office')
+        self.room1 = self.dojo.create_room('Nexus', 'livingspace')
+        self.office = self.dojo.offices[0].room_type
+        self.office_name = self.dojo.offices[0].room_name
+        self.offices = self.dojo.offices
+        self.rooms = self.dojo.livingrooms
+        self.all_rooms = self.dojo.all_rooms
 
     def test_room_created_successfully(self):
         initial_room_count = len(self.dojo.all_rooms)
-        self.assertTrue(self.office1)
+        self.office2 = self.dojo.create_room('Valhalla', 'office')
         new_room_count = len(self.dojo.all_rooms)
         self.assertEqual(new_room_count - initial_room_count, 1)
 
-    def test_if_room_type_is_dict(self):
-        self.assertEqual(self.room_type({}), 'room type can only be a string')
+    def test_office_created_successfully(self):
+        initial_room_count = len(self.dojo.offices)
+        self.office2 = self.dojo.create_room('Valhalla', 'office')
+        new_room_count = len(self.dojo.offices)
+        self.assertEqual(new_room_count - initial_room_count, 1)
 
-    def test_if_room_type_is_int(self):
-        self.assertEqual(self.room_type(9), 'room type can only be a string')
-
-    def test_if_room_type_is_list(self):
-        self.assertEqual(self.room_type([]), 'room type can only be a string')
-
-    def test_if_room_type_is_set(self):
-        self.assertEqual(self.room_type(()), 'room type can only be a string')
-
-    def test_if_room_type_is_valid(self):
-        self.assertTrue(self.room_type, 'office' or 'livingspace')
-
-    def test_room_name_is_not_int(self):
-        self.assertEqual(self.room_name(9), 'room name can only be a string')
-
-    def test_room_name_is_not_list(self):
-        self.assertEqual(self.room_name([]), 'room name can only be a string')
-
-    def test_room_name_is_not_dict(self):
-        self.assertEqual(self.room_name({}), 'room name can only be a string')
-
-    def test_room_name_is_not_set(self):
-        self.assertEqual(self.room_name(()), 'room name can only be a string')
+    def test_living_rooms_created_successfully(self):
+        initial_room_count = len(self.rooms)
+        self.living = self.dojo.create_room('Python', 'livingspace')
+        new_room_count = len(self.rooms)
+        self.assertEqual(new_room_count - initial_room_count, 1)
 
 
 class AddPersonTestCases(unittest.TestCase):
@@ -60,21 +49,6 @@ class AddPersonTestCases(unittest.TestCase):
         """
         self.dojo = Dojo()
         self.person = self.dojo.add_person('Salat', 'Abdala', 'fellow')
-
-    def test_if_persons_name_is_correct(self):
-        self.assertEqual(self.person, 'Salat Abdala')
-
-    def test_persons_name_is_not_int(self):
-        self.assertEqual(self.person(100), 'A name can only be a string')
-
-    def test_persons_name_is_not_list(self):
-        self.assertEqual(self.person([]), 'A name can only be a string')
-
-    def test_persons_name_is_not_dict(self):
-        self.assertEqual(self.person({}), 'A name can only be a string')
-
-    def test_persons_name_is_not_set(self):
-        self.assertEqual(self.person(()), 'A name can only be a string')
 
 
 
