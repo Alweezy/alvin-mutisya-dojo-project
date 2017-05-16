@@ -52,7 +52,7 @@ class TestsCasesRoom(unittest.TestCase):
         self.assertEqual(self.room_name(()), 'room name can only be a string')
 
 
-class PersonTestCases(unittest.TestCase):
+class AddPersonTestCases(unittest.TestCase):
     """Tests all the functionality of create_room method.
     """
     def setUp(self):
