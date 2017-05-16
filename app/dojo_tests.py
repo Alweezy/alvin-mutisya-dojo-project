@@ -43,12 +43,12 @@ class TestsCasesRoom(unittest.TestCase):
     def test_office_creation_repeated(self):
         initial_room_count = len(self.rooms)
         self.office1 = self.dojo.create_room('Valhalla', 'office')
-        new_room_count = len(self.rooms)
+        new_room_count = len(self.offices)
         self.assertEqual(new_room_count - initial_room_count, 0)
 
     def test_livingspace_creation_repeated(self):
         initial_room_count = len(self.rooms)
-        self.room1 = self.dojo.create_room('Nexus', 'livingspace')
+        self.room2 = self.dojo.create_room('Nexus', 'livingspace')
         new_room_count = len(self.rooms)
         self.assertEqual(new_room_count - initial_room_count, 0)
 
