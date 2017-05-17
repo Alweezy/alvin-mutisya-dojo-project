@@ -11,26 +11,26 @@ class PersonTestCases(TestCase):
         self.person = Person('Oluwafemi', 'Sule', 'Fellow')
 
     def test_full_name_is_correct(self):
-        self.assertEqual(self.person.get_person_name(), 'Oluwafemi Sule')
+        self.assertEqual(self.person.fname + ' ' + self.person.lname, 'Oluwafemi Sule')
 
 
 class FellowTestCases(TestCase):
     def setUp(self):
-        self.fellow = Fellow('Nadia', 'Alexis')
+        self.fellow = Fellow('Nadia', 'Alexis', 'Fellow')
 
     def test_if_inherits_from_Person(self):
         self.assertTrue(issubclass(Fellow, Person))
 
     def test_person_name_is_correct(self):
-        self.assertEqual(self.fellow.get_person_name(), 'Nadia Alexis')
+        self.assertEqual(self.fellow.fname + ' ' + self.fellow.lname, 'Nadia Alexis')
 
 
 class StaffTestCases(TestCase):
     def setUp(self):
-        self.staff = Staff('Nadia', 'Alexis')
+        self.staff = Staff('Nadia', 'Alexis', 'Fellow')
 
     def test_if_inherits_from_Person(self):
         self.assertTrue(issubclass(Staff, Person))
 
     def test_full_name_is_correct(self):
-        self.assertEqual(self.staff.get_person_name(), 'Nadia Alexis')
+        self.assertEqual(self.staff.fname + ' ' + self.staff.lname, 'Nadia Alexis')
