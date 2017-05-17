@@ -76,7 +76,25 @@ class Interactive (cmd.Cmd):
             for room_name in args["<room_name>"]:
                 print(dojo.create_room(room_name, room_type))
 
-    
+    @docopt_cmd
+    def do_add_person(self, args):
+        """Usage: \
+        add_person <first_name> <last_name> (Fellow|Staff) [<wants_space>]"""
+        if args["Fellow"] and args["<first_name>"] and args["<last_name>"]:
+            first_name = args["<first_name>"]
+            last_name = args["<last_name>"]
+            occupation = "Fellow"
+            if args["<wants_space>"]:
+                wants_space = args["<wants_space>"]
+                print(dojo.add_person(first_name, last_name, wants_space, occupation))
+            else:
+                print(dojo.add_person(first_name, last_name, occupation))
+        elif args["Staff"] and args["<first_name>"] and args["<last_name>"]:
+            first_name = args["<first_name>"]
+            last_name = args["<last_name>"]
+            occupation = "Staff"
+            print(dojo.add_person(first_name, last_name, occupation))
+
     def do_quit(self, arg):
         """Quits out of the interactive mode"""
         print('*********************BYE******************************')
