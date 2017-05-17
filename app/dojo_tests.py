@@ -54,7 +54,22 @@ class AddPersonTestCases(unittest.TestCase):
         """Create an instance of  the class dojo and pass it all tests in test case
         """
         self.dojo = Dojo()
-        self.person = self.dojo.add_person('Salat', 'Abdala', 'fellow')
+        self.fellow_no_room = self.dojo.add_person('Salat', 'Abdala', 'Fellow')
+        self.fellow_with_room = self.dojo.add_person('Billy', 'Yusuf', 'Fellow', 'Y')
+        self.staff = self.dojo.add_person('Naima', 'Hussein', 'Staff')
+        self.new_office = self.dojo.create_room('Argon', 'office')
+        self.new_room = self.dojo.create_room('west', 'livingspace')
+
+    def test_fellow_no_accommodation_added(self):
+        self.assertEqual(self.fellow_no_room,  'SalatAbdala has been added successfully!')
+
+    def test_fellow_with_accomodation_added(self):
+        self.assertEqual(self.fellow_with_room, 'BillyYusuf has been added successfully!')
+
+    def test_staff_added(self):
+        self.assertEqual(self.staff, 'A Staff NaimaHussein has been added successfully!')
+
+
 
 
 
