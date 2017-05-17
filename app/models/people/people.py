@@ -12,3 +12,9 @@ class Person(object):
         self.lname = lname
         self.occupation = occupation
         self.person_name = self.fname + self.fname
+
+
+class Fellow(Person):
+    def __init__(self, fname, lname, occupation, wants_accommodation='N'):
+        super(Fellow, self).__init__(fname, lname, occupation='Fellow')
+        self.wants_accommodation = wants_accommodation
