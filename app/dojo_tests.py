@@ -96,14 +96,14 @@ class AddPersonTestCases(unittest.TestCase):
         initial_room_capacity = self.dojo.all_rooms[0].room_capacity
         self.fellow2 = self.dojo.add_person('Burei', 'Dollar', 'Fellow')
         new_room_capacity = self.dojo.all_rooms[0].room_capacity
-        self.assertTrue((initial_room_capacity - new_room_capacity), 1)
+        self.assertEqual((initial_room_capacity - new_room_capacity), 1)
 
     def test_staff_room_allocation_successful(self):
         # if a staff member gets a room , room capacity should decrease by 1
         initial_room_capacity = self.dojo.all_rooms[0].room_capacity
         self.staff2 = self.dojo.add_person('Naomi', 'Dollar', 'Staff')
         new_room_capacity = self.dojo.all_rooms[0].room_capacity
-        self.assertTrue((initial_room_capacity - new_room_capacity), 1)
+        self.assertEqual((initial_room_capacity - new_room_capacity), 1)
 
 if __name__ == "__main__":
     unittest.main()
