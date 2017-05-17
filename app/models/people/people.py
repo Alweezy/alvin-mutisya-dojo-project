@@ -18,3 +18,8 @@ class Fellow(Person):
     def __init__(self, fname, lname, occupation, wants_accommodation='N'):
         super(Fellow, self).__init__(fname, lname, occupation='Fellow')
         self.wants_accommodation = wants_accommodation
+
+
+class Staff(Person):
+    def __init__(self, fname, lname, occupation):
+        super(Staff, self).__init__(fname, lname, occupation='Staff')
