@@ -1,4 +1,4 @@
-from people import Person, Fellow, Staff
+from models.people import Person, Fellow, Staff
 from unittest import TestCase
 
 

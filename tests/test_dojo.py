@@ -1,8 +1,7 @@
-import os
 import sys
 import unittest
 from os import path
-from dojo import Dojo
+from models.dojo import Dojo
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
 

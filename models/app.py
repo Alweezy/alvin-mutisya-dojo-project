@@ -23,7 +23,7 @@ Options:
 import sys
 import cmd
 from docopt import docopt, DocoptExit
-from dojo import Dojo
+from models.dojo import Dojo
 
 
 def docopt_cmd(func):

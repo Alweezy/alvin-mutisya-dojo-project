@@ -1,5 +1,5 @@
-from models.people.people import Staff, Fellow
-from models.rooms.rooms import Office, LivingSpace
+from models.people import Staff, Fellow
+from models.rooms import Office, LivingSpace
 import random
 
 

@@ -1,4 +1,4 @@
-from rooms import Room, Office,  LivingSpace
+from models.rooms import Room, Office,  LivingSpace
 from unittest import TestCase
 
 
