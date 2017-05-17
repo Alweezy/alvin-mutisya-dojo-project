@@ -20,7 +20,6 @@ class TestsCasesRoom(unittest.TestCase):
         self.office_name = self.dojo.offices[0].room_name
         self.offices = self.dojo.offices
         self.rooms = self.dojo.livingrooms
-        self.all_rooms = self.dojo.all_rooms
 
     def test_office_created_successfully(self):
         initial_room_count = len(self.dojo.offices)
@@ -54,23 +53,30 @@ class AddPersonTestCases(unittest.TestCase):
         """Create an instance of  the class dojo and pass it all tests in test case
         """
         self.dojo = Dojo()
-        self.fellow_no_room = self.dojo.add_person('Salat', 'Abdala', 'Fellow')
-        self.fellow_with_room = self.dojo.add_person('Billy', 'Yusuf', 'Fellow', 'Y')
-        self.staff = self.dojo.add_person('Naima', 'Hussein', 'Staff')
-        self.new_office = self.dojo.create_room('Argon', 'office')
-        self.new_room = self.dojo.create_room('west', 'livingspace')
+        self.fellow1 = self.dojo.add_person('Salat', 'Abdala', 'Fellow')
+        self.staff1 = self.dojo.add_person('Naima', 'Hussein', 'Staff')
+        self.office1 = self.dojo.create_room('Argon', 'office')
+        self.room1 = self.dojo.create_room('west', 'livingspace')
+        self.fellow_name = self.dojo.fellows[0].fname
+        self.staff_name = self.dojo.staff[0].fname
 
-    def test_fellow_no_accommodation_added(self):
-        self.assertEqual(self.fellow_no_room,  'SalatAbdala has been added successfully!')
+    def test_fellow_added_successfully(self):
+        initial_fellow_count = len(self.dojo.fellows)
+        self.fellow2 = self.dojo.add_person('Burei', 'Dollar', 'Fellow')
+        new_fellow_count = len(self.dojo.fellows)
+        self.assertEqual(new_fellow_count - initial_fellow_count, 1)
 
-    def test_fellow_with_accomodation_added(self):
-        self.assertEqual(self.fellow_with_room, 'BillyYusuf has been added successfully!')
+    def test_fellow_wants_room_added_successfully(self):
+        initial_fellow_count = len(self.dojo.fellows)
+        self.fellow3 = self.dojo.add_person('Jackie', 'Macharia', 'Fellow', 'Y')
+        new_fellow_count = len(self.dojo.fellows)
+        self.assertEqual(new_fellow_count - initial_fellow_count, 1)
 
-    def test_staff_added(self):
-        self.assertEqual(self.staff, 'A Staff NaimaHussein has been added successfully!')
-
-
-
+    def test_staff_added_successfully(self):
+        initial_staff_count = len(self.dojo.staff)
+        self.staff2 = self.dojo.add_person('Eva', 'Njeri', 'Staff')
+        new_staff_count = len(self.dojo.staff)
+        self.assertEqual(new_staff_count - initial_staff_count, 1)
 
 
 if __name__ == "__main__":
