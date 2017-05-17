@@ -78,6 +78,19 @@ class AddPersonTestCases(unittest.TestCase):
         new_staff_count = len(self.dojo.staff)
         self.assertEqual(new_staff_count - initial_staff_count, 1)
 
+    def test_staff_repetition(self):
+        initial_staff_count = len(self.dojo.staff)
+        self.staff2 = self.dojo.add_person('Eva', 'Njeri', 'Staff')
+        new_staff_count = len(self.dojo.staff)
+        self.assertEqual(new_staff_count - initial_staff_count, 0)
+
+    def test_add_fellow_repetition(self):
+        initial_fellow_count = len(self.dojo.fellows)
+        self.fellow2 = self.dojo.add_person('Burei', 'Dollar', 'Fellow')
+        new_fellow_count = len(self.dojo.fellows)
+        self.assertEqual(new_fellow_count - initial_fellow_count, 0)
+
+
 
 if __name__ == "__main__":
     unittest.main()
