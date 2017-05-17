@@ -15,7 +15,7 @@ class OfficeSpaceTestCase(TestCase):
         self.assertTrue(issubclass(Office, Room))
 
     def test_room_correct_room_capacity(self):
-        self.valhalla = Office('Valhalla')
+        self.valhalla = Office('Valhalla', 'Office')
         self.assertEqual(self.valhalla.room_capacity, 6)
 
 
@@ -24,5 +24,5 @@ class LivingSpaceTestCase(TestCase):
         self.assertTrue(issubclass(LivingSpace, Room))
 
     def test_room_correct_room_capacity(self):
-        self.python = LivingSpace('Python')
+        self.python = LivingSpace('Python', 'Livingspace')
         self.assertEqual(self.python.room_capacity, 4)
