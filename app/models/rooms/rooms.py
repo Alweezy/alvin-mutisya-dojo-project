@@ -18,3 +18,14 @@ class Room(object):
         self.room_capacity = room_capacity
         self.occupants = []
 
+
+class Office(Room):
+
+    def __init__(self, room_name, room_type):
+        super(Office, self).__init__(room_name, room_type, room_capacity=6)
+
+
+class LivingSpace(Room):
+
+    def __init__(self, room_name, room_type):
+        super(LivingSpace, self).__init__(room_name, room_type, room_capacity=4)
