@@ -81,29 +81,32 @@ class AddPersonTestCases(unittest.TestCase):
 
     def test_staff_repetition(self):
         initial_staff_count = len(self.dojo.staff)
-        self.staff2 = self.dojo.add_person('Eva', 'Njeri', 'Staff')
+        self.staff2 = self.dojo.add_person('Naima', 'Hussein', 'Staff')
         new_staff_count = len(self.dojo.staff)
         self.assertEqual(new_staff_count - initial_staff_count, 0)
 
     def test_add_fellow_repetition(self):
+        self.fellow = self.dojo.add_person('Albert', 'Yusuf', 'Fellow', 'Y')
+        print(self.dojo.fellows)
         initial_fellow_count = len(self.dojo.fellows)
-        self.fellow2 = self.dojo.add_person('Burei', 'Dollar', 'Fellow')
+        self.new_fellow = self.dojo.add_person('Albert', 'Yusuf', 'Fellow', 'Y')
+        print(self.dojo.fellows)
         new_fellow_count = len(self.dojo.fellows)
         self.assertEqual(new_fellow_count - initial_fellow_count, 0)
 
     def test_fellow_room_allocation_successful(self):
         # if a fellow gets allocated the the room capacity should decrease by 1
-        initial_room_capacity = self.dojo.all_rooms[0].room_capacity
+        initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
         self.fellow2 = self.dojo.add_person('Burei', 'Dollar', 'Fellow')
-        new_room_capacity = self.dojo.all_rooms[0].room_capacity
-        self.assertEqual((initial_room_capacity - new_room_capacity), 1)
+        new_room_capacity = len(self.dojo.all_rooms[0].occupants)
+        self.assertEqual((new_room_capacity - initial_room_capacity), 1)
 
     def test_staff_room_allocation_successful(self):
         # if a staff member gets a room , room capacity should decrease by 1
-        initial_room_capacity = self.dojo.all_rooms[0].room_capacity
+        initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
         self.staff2 = self.dojo.add_person('Naomi', 'Dollar', 'Staff')
-        new_room_capacity = self.dojo.all_rooms[0].room_capacity
-        self.assertEqual((initial_room_capacity - new_room_capacity), 1)
+        new_room_capacity = len(self.dojo.all_rooms[0].occupants)
+        self.assertEqual((new_room_capacity - initial_room_capacity), 1)
 
 if __name__ == "__main__":
     unittest.main()
