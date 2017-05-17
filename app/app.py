@@ -58,7 +58,7 @@ dojo = Dojo()
 
 
 class Interactive (cmd.Cmd):
-    prompt = "(dojo)>> "
+    prompt = "(dojo)===>> "
     print(__doc__)
 
     file = None
@@ -86,7 +86,7 @@ class Interactive (cmd.Cmd):
             occupation = "Fellow"
             if args["<wants_space>"]:
                 wants_space = args["<wants_space>"]
-                print(dojo.add_person(first_name, last_name, wants_space, occupation))
+                print(dojo.add_person(first_name, last_name, occupation, wants_space))
             else:
                 print(dojo.add_person(first_name, last_name, occupation))
         elif args["Staff"] and args["<first_name>"] and args["<last_name>"]:
