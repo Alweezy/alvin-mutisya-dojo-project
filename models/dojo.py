@@ -1,6 +1,9 @@
-from models.people import Staff, Fellow
-from models.rooms import Office, LivingSpace
+import sys
 import random
+from people import Staff, Fellow
+from rooms import Office, LivingSpace
+from os import path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
 
 class Dojo(object):

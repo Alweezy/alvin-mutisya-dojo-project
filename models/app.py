@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """
 This is the dojo
 
@@ -22,8 +21,10 @@ Options:
 
 import sys
 import cmd
+from os import path
 from docopt import docopt, DocoptExit
-from models.dojo import Dojo
+from dojo import Dojo
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
 
 def docopt_cmd(func):

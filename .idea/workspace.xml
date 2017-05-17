@@ -2,33 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9430514e-35c5-47a8-aa6f-1958e8ccf1e8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/alvin-mutisya-dojo-project.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/app.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/dojo.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/people.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/rooms.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/requirements.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/test_dojo.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/test_people.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/test_rooms.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/app.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/dojo.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/models/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/models/people/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/models/people/people.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/models/people/test_people.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/models/rooms/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/models/rooms/rooms.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/models/rooms/test_rooms.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/test_dojo.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/app.py" afterPath="$PROJECT_DIR$/models/app.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/dojo.py" afterPath="$PROJECT_DIR$/models/dojo.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -43,32 +19,24 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/app.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="23" column="10" lean-forward="true" selection-start-line="22" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dojo.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/dojo.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="1" column="17" lean-forward="false" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="people.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/people.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="189">
+              <caret line="9" column="11" lean-forward="true" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/app.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-315">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#617#627#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -76,11 +44,21 @@
       <file leaf-file-name="rooms.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/rooms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="63">
+              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dojo.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/models/dojo.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="63">
+              <caret line="3" column="5" lean-forward="false" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -88,8 +66,8 @@
       <file leaf-file-name="test_dojo.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/test_dojo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="84">
+              <caret line="4" column="35" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -97,7 +75,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_rooms.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="test_rooms.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/test_rooms.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
@@ -111,7 +89,7 @@
         <entry file="file://$PROJECT_DIR$/tests/test_people.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="11" lean-forward="false" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="11" />
+              <caret line="0" column="12" lean-forward="false" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -145,12 +123,12 @@
         <option value="$PROJECT_DIR$/app/dojo_tests.py" />
         <option value="$PROJECT_DIR$/app/dojo.py" />
         <option value="$PROJECT_DIR$/app/app.py" />
-        <option value="$PROJECT_DIR$/tests/test_people.py" />
-        <option value="$PROJECT_DIR$/models/app.py" />
-        <option value="$PROJECT_DIR$/models/dojo.py" />
         <option value="$PROJECT_DIR$/models/rooms.py" />
         <option value="$PROJECT_DIR$/tests/test_dojo.py" />
         <option value="$PROJECT_DIR$/tests/test_rooms.py" />
+        <option value="$PROJECT_DIR$/models/app.py" />
+        <option value="$PROJECT_DIR$/tests/test_people.py" />
+        <option value="$PROJECT_DIR$/models/dojo.py" />
       </list>
     </option>
   </component>
@@ -533,7 +511,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32711864" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32686085" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -570,12 +548,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/models/app.py</url>
-          <line>22</line>
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="1" />
     </breakpoint-manager>
     <watches-manager />
@@ -640,62 +612,64 @@
     <entry file="file://$PROJECT_DIR$/app/models/people/people.py" />
     <entry file="file://$PROJECT_DIR$/app/dojo.py" />
     <entry file="file://$PROJECT_DIR$/app/models/rooms/rooms.py" />
-    <entry file="file://$PROJECT_DIR$/tests/test_people.py">
+    <entry file="file://$PROJECT_DIR$/tests/test_rooms.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="11" lean-forward="false" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="11" />
+          <caret line="0" column="11" lean-forward="false" selection-start-line="0" selection-start-column="11" selection-end-line="0" selection-end-column="11" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/test_dojo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="35" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="23" column="10" lean-forward="true" selection-start-line="22" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
-          <folding />
+        <state relative-caret-position="-315">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#617#627#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/dojo.py">
+    <entry file="file://$PROJECT_DIR$/tests/test_people.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" column="17" lean-forward="false" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
+        <state relative-caret-position="0">
+          <caret line="0" column="12" lean-forward="false" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/people.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="189">
+          <caret line="9" column="11" lean-forward="true" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/rooms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="63">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test_dojo.py">
+    <entry file="file://$PROJECT_DIR$/models/dojo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test_rooms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="11" lean-forward="false" selection-start-line="0" selection-start-column="11" selection-end-line="0" selection-end-column="11" />
+        <state relative-caret-position="63">
+          <caret line="3" column="5" lean-forward="false" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
           <folding />
         </state>
       </provider>
