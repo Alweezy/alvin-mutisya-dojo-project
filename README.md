@@ -3,6 +3,7 @@
 ---
 
 [![Build Status](https://travis-ci.org/Alweezy/alvin-mutisya-dojo-project.svg?branch=develop)](https://travis-ci.org/Alweezy/alvin-mutisya-dojo-project)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT)
 
 ---
 
