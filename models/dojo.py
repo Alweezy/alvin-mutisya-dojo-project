@@ -118,3 +118,22 @@ class Dojo(object):
                     print('All offices are occupied, add a new office')
             else:
                 print('A member of staff with that name already exists')
+
+    def print_room(self, room_name):
+        """Gets a room name as an argument and returns a status of the room's
+        existence and occupants if room exists
+        :param room_name: A string representing  the name of the room.
+        """
+        # check if the requested room is available in the list of created rooms.
+        if room_name not in [room.room_name for room in self.all_rooms]:
+            return 'The room you entered is not in the system'
+        for room in self.all_rooms:
+            if room.room_name is room_name:
+                print(room.room_name)
+                print('*' * 100)
+                # check if room has occupants
+                if room.occupants:
+                    for person in room.occupants:
+                        print(person.fname + ' ' + person.lname)
+                else:
+                    return 'Room has currently no occupants'
