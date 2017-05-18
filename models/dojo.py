@@ -30,23 +30,35 @@ class Dojo(object):
         return chosen_room.room_name
 
     def create_room(self, room_name, room_type):
-            if room_type is 'office':
-                if room_name not in [room.room_name for room in self.offices]:
-                    room = Office(room_name=room_name, room_type=room_type)
-                    self.offices.append(room)
-                    self.all_rooms.append(room)
-                    return 'An office called' + ' ' + room_name + ' ' + 'has been successfully created'
-                return 'An office with that name already exists'
-            if room_type is 'livingspace':
-                if room_name not in [room.room_name for room in self.livingrooms]:
-                    room = LivingSpace(room_name=room_name, room_type=room_type)
-                    # add object to list( has both room_name and room_type)
-                    self.livingrooms.append(room)
-                    self.all_rooms.append(room)
-                    return 'A room called ' + room_name + ' has been successfully created!'
-                return 'A living room with that name already exists'
+        """Creates a room in the system, either office or living space.
+        :param room_name: A string representing a room's name.
+        :param room_type: A string representing  a room's type (Office or Living space)
+        :return:
+        """
+        if room_type is 'office':
+            if room_name not in [room.room_name for room in self.offices]:
+                room = Office(room_name=room_name, room_type=room_type)
+                self.offices.append(room)
+                self.all_rooms.append(room)
+                return 'An office called' + ' ' + room_name + ' ' + 'has been successfully created'
+            return 'An office with that name already exists'
+        if room_type is 'livingspace':
+            if room_name not in [room.room_name for room in self.livingrooms]:
+                room = LivingSpace(room_name=room_name, room_type=room_type)
+                # add object to list( has both room_name and room_type)
+                self.livingrooms.append(room)
+                self.all_rooms.append(room)
+                return 'A room called ' + room_name + ' has been successfully created!'
+            return 'A living room with that name already exists'
 
     def add_person(self, first_name, last_name, occupation, wants_accommodation=None):
+        """Adds person to the system and allocates them office space and room space if they
+        are a fellow and requested for accomodation.
+        :param first_name: A string representing the person's first name.
+        :param last_name: A string representing the person's second name.
+        :param occupation: A string representing the persons's   type (Fellow/Staff)
+        :param wants_accommodation: An optional string representing a fellow's accomodation
+        """
         self.first_name = first_name
         self.last_name = last_name
         self.occupation = occupation
@@ -106,26 +118,3 @@ class Dojo(object):
                     print('All offices are occupied, add a new office')
             else:
                 print('A member of staff with that name already exists')
-
-
-
-
-
-
-
-dojo = Dojo()
-# print(dojo.create_room('Valhalla', 'office'))
-# print(dojo.create_room('Django', 'livingspace'))
-# print(dojo.create_room('Tango', 'livingspace'))
-# print(dojo.add_person('Agatha', 'Wairimu', 'Fellow'))
-# print(dojo.add_person('Agatha', 'Wairimu', 'Fellow'))
-print(dojo.add_person('Agath', 'Wairimu', 'Fellow', 'Y'))
-# print(dojo.add_person('Betty', 'Wairimu', 'Fellow'))
-# print(dojo.add_person('Betty', 'Wairimu', 'Fellow'))
-# print(dojo.add_person('Agatha', 'Wairimu', 'Fellow', 'Y'))
-# print(dojo.add_person('Agatha', 'Wairimu', 'Fellow', 'Y'))
-#
-# print(dojo.add_person('Betty', 'Wairimu', 'Fellow'))
-# print(dojo.add_person('Betty', 'Wairimu', 'Staff'))
-# print(dojo.add_person('Betty', 'Wairimu', 'Staff'))
-# print(dojo.fellows)
