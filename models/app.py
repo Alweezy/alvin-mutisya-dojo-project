@@ -4,11 +4,11 @@ This is the dojo
 Usage:
     dojo create_room (Living|Office) <room_name>...
     dojo add_person <first_name> <last_name> (Fellow|Staff) [<wants_space>]
+    dojo print_room <room_name>
     dojo print_allocations [--o=filename.txt]
     dojo print_unallocated [--o=filename.txt]
     dojo reallocate_person <employee_id> <new_room_name>
     dojo load_people <filename>
-    dojo print_room <room_name>
     dojo save_state [--db=sqlite_database]
     dojo load_state <sqlite_database>
     dojo (-i | --interactive)
@@ -59,7 +59,7 @@ dojo = Dojo()
 
 
 class Interactive (cmd.Cmd):
-    prompt = "(dojo)===>> "
+    prompt = "(Dojo)===>> "
     print(__doc__)
 
     file = None
@@ -96,9 +96,27 @@ class Interactive (cmd.Cmd):
             occupation = "Staff"
             print(dojo.add_person(first_name, last_name, occupation))
 
+    @docopt_cmd
+    def do_print_room(self, args):
+        """Usage: print_room <room_name>"""
+        if args["<room_name>"]:
+            room_name = args["<room_name>"]
+            dojo.print_room(room_name)
+
+    @docopt_cmd
+    def do_print_allocation(self, args):
+        """Usage: print_allocations [--o=filename.txt]"""
+        filename = args["--o"]
+        dojo.print_allocation(filename)
+
+    @docopt_cmd
+    def print_unallocated(self, args):
+        filename = args["--o"]
+        dojo.print_allocation(filename)
+
     def do_quit(self, arg):
         """Quits out of the interactive mode"""
-        print('*********************BYE******************************')
+        print(('-' * 47) + 'BYE' + ('-' * 47))
         exit()
 
 opt = docopt(__doc__, sys.argv[1:])
