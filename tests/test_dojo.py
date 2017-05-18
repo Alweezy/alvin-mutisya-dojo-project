@@ -32,13 +32,13 @@ class TestsCasesRoom(unittest.TestCase):
         new_room_count = len(self.rooms)
         self.assertEqual(new_room_count - initial_room_count, 1)
 
-    def test_office_creation_repeated(self):
+    def test_office_creation_duplicate(self):
         initial_room_count = len(self.rooms)
         self.office1 = self.dojo.create_room('Valhalla', 'office')
         new_room_count = len(self.offices)
         self.assertEqual(new_room_count - initial_room_count, 0)
 
-    def test_livingspace_creation_repeated(self):
+    def test_livingspace_creation_duplicate(self):
         initial_room_count = len(self.rooms)
         self.room2 = self.dojo.create_room('Nexus', 'livingspace')
         new_room_count = len(self.rooms)
@@ -78,13 +78,13 @@ class AddPersonTestCases(unittest.TestCase):
         new_staff_count = len(self.dojo.staff)
         self.assertEqual(new_staff_count - initial_staff_count, 1)
 
-    def test_staff_repetition(self):
+    def test_staff_duplicate(self):
         initial_staff_count = len(self.dojo.staff)
         self.staff2 = self.dojo.add_person('Naima', 'Hussein', 'Staff')
         new_staff_count = len(self.dojo.staff)
         self.assertEqual(new_staff_count - initial_staff_count, 0)
 
-    def test_add_fellow_repetition(self):
+    def test_add_fellow_duplicate(self):
         self.fellow = self.dojo.add_person('Albert', 'Yusuf', 'Fellow', 'Y')
         print(self.dojo.fellows)
         initial_fellow_count = len(self.dojo.fellows)
