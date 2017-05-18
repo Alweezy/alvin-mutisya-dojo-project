@@ -70,12 +70,12 @@ class Interactive (cmd.Cmd):
         if args["Office"] is True:
             room_type = "office"
             for room_name in args["<room_name>"]:
-                print(dojo.create_room(room_name, room_type))
+                dojo.create_room(room_name, room_type)
 
         elif args["Living"] is True:
             room_type = "livingspace"
             for room_name in args["<room_name>"]:
-                print(dojo.create_room(room_name, room_type))
+                dojo.create_room(room_name, room_type)
 
     @docopt_cmd
     def do_add_person(self, args):
@@ -87,14 +87,14 @@ class Interactive (cmd.Cmd):
             occupation = "Fellow"
             if args["<wants_space>"]:
                 wants_space = args["<wants_space>"]
-                print(dojo.add_person(first_name, last_name, occupation, wants_space))
+                dojo.add_person(first_name, last_name, occupation, wants_space)
             else:
-                print(dojo.add_person(first_name, last_name, occupation))
+                dojo.add_person(first_name, last_name, occupation)
         elif args["Staff"] and args["<first_name>"] and args["<last_name>"]:
             first_name = args["<first_name>"]
             last_name = args["<last_name>"]
             occupation = "Staff"
-            print(dojo.add_person(first_name, last_name, occupation))
+            dojo.add_person(first_name, last_name, occupation)
 
     @docopt_cmd
     def do_print_room(self, args):
@@ -110,7 +110,8 @@ class Interactive (cmd.Cmd):
         dojo.print_allocation(filename)
 
     @docopt_cmd
-    def print_unallocated(self, args):
+    def do_print_unallocated(self, args):
+        """Usage: print_unallocated [--o=filename.txt]"""
         filename = args["--o"]
         dojo.print_allocation(filename)
 
