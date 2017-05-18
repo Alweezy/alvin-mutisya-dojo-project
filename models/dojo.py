@@ -41,16 +41,18 @@ class Dojo(object):
                 room = Office(room_name=room_name, room_type=room_type)
                 self.offices.append(room)
                 self.all_rooms.append(room)
-                return 'An office called' + ' ' + room_name + ' ' + 'has been successfully created'
-            return 'An office with that name already exists'
+                print('An office called' + ' ' + room_name + ' ' + 'has been successfully created')
+            else:
+                print('An office with that name already exists')
         if room_type is 'livingspace':
             if room_name not in [room.room_name for room in self.livingrooms]:
                 room = LivingSpace(room_name=room_name, room_type=room_type)
                 # add object to list( has both room_name and room_type)
                 self.livingrooms.append(room)
                 self.all_rooms.append(room)
-                return 'A room called ' + room_name + ' has been successfully created!'
-            return 'A living room with that name already exists'
+                print('A room called ' + room_name + ' has been successfully created!')
+            else:
+                print('A living room with that name already exists')
 
     def add_person(self, first_name, last_name, occupation, wants_accommodation=None):
         """Adds person to the system and allocates them office space and room space if they
@@ -80,7 +82,7 @@ class Dojo(object):
                         for room in self.offices:
                             if room.room_name == work_room:
                                 room.occupants.append(person)
-                                return'A ' + person.occupation + ' ' + person.fname + ' has been added to ' + work_room
+                                print('A ' + person.occupation + ' ' + person.fname + ' has been added to ' + work_room)
                     else:
                         # Add person to a list of unallocated if they got no office space.
                         self.unallocated.append(person)
@@ -135,7 +137,7 @@ class Dojo(object):
         """
         # check if the requested room is available in the list of created rooms.
         if room_name not in [room.room_name for room in self.all_rooms]:
-            return 'The room you entered is not in the system'
+            print('The room you entered is not in the system')
         for room in self.all_rooms:
             if room.room_name == room_name:
                 print(room.room_name)
@@ -170,6 +172,7 @@ class Dojo(object):
 
     def print_unallocated(self, filename):
         print('-' * 100)
+        # collect all file info as a string
         write_to_file = ''
         if self.unallocated:
             for person in self.unallocated:
