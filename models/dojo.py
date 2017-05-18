@@ -14,6 +14,7 @@ class Dojo(object):
         self.fellows = []
         self.all_rooms = []
         self.all_people = []
+        self.unallocated = []
 
     def get_room(self, rooms):
         """A function to generate a list of random rooms with space.
@@ -53,7 +54,7 @@ class Dojo(object):
 
     def add_person(self, first_name, last_name, occupation, wants_accommodation=None):
         """Adds person to the system and allocates them office space and room space if they
-        are a fellow and requested for accomodation.
+        are a fellow and requested for accommodation.
         :param first_name: A string representing the person's first name.
         :param last_name: A string representing the person's second name.
         :param occupation: A string representing the persons's   type (Fellow/Staff)
@@ -81,7 +82,9 @@ class Dojo(object):
                                 room.occupants.append(person)
                                 return'A ' + person.occupation + ' ' + person.fname + ' has been added to ' + work_room
                     else:
-                        return 'All offices are occupied, add a new office'
+                        # Add person to a list of unallocated if they got no office space.
+                        self.unallocated.append(person)
+                        print('All offices are occupied, you will be added once space is available')
                 else:
                     # if a fellow does not want  accommodation then they get only office space
                     work_room = self.get_room(self.offices)
@@ -93,14 +96,18 @@ class Dojo(object):
                                 room.occupants.append(person)
                                 print('A ' + person.occupation + ' ' + person.fname + ' has been added to ' + work_room)
                     else:
-                        print('All offices are occupied, add a new office')
+                        # Add person to a list of unallocated if they got no office space.
+                        self.unallocated.append(person)
+                        print('All offices are occupied, you will be added once space is available')
                     if living_room:
                         for room in self.livingrooms:
                             if room.room_name == living_room:
                                 room.occupants.append(person)
                                 print('A ' + person.occupation + ' ' + person.fname + ' has been added to ' + living_room)
                     else:
-                        return 'All living rooms are occupied, add a new living room'
+                        # Add person to a list of unallocated if they got no office space.
+                        self.unallocated.append(person)
+                        print('All living rooms  are occupied, you will be added once space is available')
             else:
                 print('A fellow with that name already exists')
         if occupation is 'Staff':
@@ -115,7 +122,9 @@ class Dojo(object):
                             room.occupants.append(person)
                             print('A ' + person.occupation + ' ' + person.fname + ' has been added to ' + work_room)
                 else:
-                    print('All offices are occupied, add a new office')
+                    # Add person to a list of unallocated if they got no office space.
+                    self.unallocated.append(person)
+                    print('All offices are occupied, you will be added once space is available')
             else:
                 print('A member of staff with that name already exists')
 
@@ -128,12 +137,49 @@ class Dojo(object):
         if room_name not in [room.room_name for room in self.all_rooms]:
             return 'The room you entered is not in the system'
         for room in self.all_rooms:
-            if room.room_name is room_name:
+            if room.room_name == room_name:
                 print(room.room_name)
-                print('*' * 100)
+                print('-' * 100)
                 # check if room has occupants
                 if room.occupants:
+                    print(room.room_name)
                     for person in room.occupants:
                         print(person.fname + ' ' + person.lname)
                 else:
-                    return 'Room has currently no occupants'
+                    print('Room has currently no occupants')
+
+    def print_allocation(self, filename):
+        """Gets all the people in the dojo facility who have been awarded room and office allocations.
+        """
+        # writing to file
+        write_to_file = ''
+        for room in self.all_rooms:
+            if room.occupants:
+                print(room.room_name)
+                write_to_file += room.room_name + '\n'
+                print('_' * 100)
+                for person in room.occupants:
+                    person_name = person.fname + ' ' + person.lname
+                    write_to_file += person_name + '\n'
+                    print(person_name)
+                print('-' * 100)
+        file_name = "" + filename + ".txt"
+        file_output = open(file_name, 'w')
+        file_output.write(write_to_file)
+        file_output.close()
+
+    def print_unallocated(self, filename):
+        print('-' * 100)
+        write_to_file = ''
+        if self.unallocated:
+            for person in self.unallocated:
+                person_name = person.fname + ' ' + person.lname
+                write_to_file += person_name + '\n'
+                print(person_name)
+            file_name = "" + filename + ".txt"
+            file_output = open(file_name, 'w')
+            file_output.write(write_to_file)
+            file_output.close()
+
+        else:
+            print('All Allocations have taken place')
