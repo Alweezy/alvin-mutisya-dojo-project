@@ -165,10 +165,12 @@ class Dojo(object):
                     write_to_file += person_name + '\n'
                     print(person_name)
                 print('-' * 100)
-        file_name = "" + filename + ".txt"
-        file_output = open(file_name, 'w')
-        file_output.write(write_to_file)
-        file_output.close()
+        # check if user has opted to print list
+        if filename:
+            file_name = filename + ".txt"
+            file_output = open(file_name, 'w')
+            file_output.write(write_to_file)
+            file_output.close()
 
     def print_unallocated(self, filename):
         print('-' * 100)
@@ -179,10 +181,12 @@ class Dojo(object):
                 person_name = person.fname + ' ' + person.lname
                 write_to_file += person_name + '\n'
                 print(person_name)
-            file_name = "" + filename + ".txt"
-            file_output = open(file_name, 'w')
-            file_output.write(write_to_file)
-            file_output.close()
+            # check if user has opted to print list
+            if filename:
+                file_name = filename + ".txt"
+                file_output = open(file_name, 'w')
+                file_output.write(write_to_file)
+                file_output.close()
 
         else:
             print('All Allocations have taken place')
