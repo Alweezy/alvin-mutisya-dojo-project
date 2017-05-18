@@ -107,5 +107,11 @@ class AddPersonTestCases(unittest.TestCase):
         new_room_capacity = len(self.dojo.all_rooms[0].occupants)
         self.assertEqual((new_room_capacity - initial_room_capacity), 1)
 
+    def test_unallocated_persons(self):
+        initial_unallocated = len(self.dojo.unallocated)
+        self.staff = self.dojo.add_person('Naomi', 'Dollar', 'Staff')
+        new_unallocated = len(self.dojo.unallocated)
+        self.assertEqual((new_unallocated - initial_unallocated), 0)
+
 if __name__ == "__main__":
     unittest.main()
