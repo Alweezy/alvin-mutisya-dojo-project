@@ -1,5 +1,4 @@
 """
-This is the dojo
 
 Usage:
     dojo create_room (Living|Office) <room_name>...
@@ -23,7 +22,11 @@ import sys
 import cmd
 from os import path
 from docopt import docopt, DocoptExit
+from termcolor import cprint, colored
+from pyfiglet import figlet_format
+from colorama import init
 from dojo import Dojo
+init(strip=not sys.stdout.isatty())
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
 
@@ -39,7 +42,7 @@ def docopt_cmd(func):
         except DocoptExit as exit:
             # An exception when the inputs differ from what is required
 
-            print("You have entered an invalid command!")
+            print(colored("You have entered an invalid command!", 'red'))
             print(exit)
             return
 
@@ -61,6 +64,8 @@ dojo = Dojo()
 class Interactive (cmd.Cmd):
     prompt = "(Dojo)===>> "
     print(__doc__)
+    intro = cprint(figlet_format('The dojo', font='roman'),
+                   'white', attrs=['bold'])
 
     file = None
 
@@ -113,11 +118,11 @@ class Interactive (cmd.Cmd):
     def do_print_unallocated(self, args):
         """Usage: print_unallocated [--o=filename.txt]"""
         filename = args["--o"]
-        dojo.print_allocation(filename)
+        dojo.print_unallocated(filename)
 
     def do_quit(self, arg):
         """Quits out of the interactive mode"""
-        print(('-' * 47) + 'BYE' + ('-' * 47))
+        print(colored(('-' * 28) + 'BYE' + ('-' * 28), 'white'))
         exit()
 
 opt = docopt(__doc__, sys.argv[1:])
