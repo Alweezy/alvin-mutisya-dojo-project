@@ -67,4 +67,4 @@ Usage:
 - This app is provided under the [MIT License](https://opensource.org/licenses/MIT)
 
 ### Asciinema
-- Follow this link [This link](https://asciinema.org/a/2chdxdxi21fv3mycrzk1unyor)
+- Follow [This link](https://asciinema.org/a/2chdxdxi21fv3mycrzk1unyor)
