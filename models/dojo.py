@@ -195,7 +195,10 @@ class Dojo(object):
                     file_output = open(file_name, 'w')
                     file_output.write(write_to_file)
                     file_output.close()
-            print(colored('There are currently no rooms with allocations', 'cyan'))
+                    return
+            else:
+                print(room.room_name)
+                print(colored('This room has no occupants', 'cyan'))
 
     def print_unallocated(self, filename):
         # collect all file info as a string
