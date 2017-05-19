@@ -37,7 +37,6 @@ class Dojo(object):
         """Creates a room in the system, either office or living space.
         :param room_name: A string representing a room's name.
         :param room_type: A string representing  a room's type (Office or Living space)
-        :return:
         """
         if room_type is 'office':
             if room_name not in [room.room_name for room in self.offices]:
