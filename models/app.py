@@ -63,7 +63,6 @@ dojo = Dojo()
 
 class Interactive (cmd.Cmd):
     prompt = "(Dojo)===>> "
-    print(__doc__)
     intro = cprint(figlet_format('The dojo', font='roman'),
                    'white', attrs=['bold'])
 
@@ -128,6 +127,7 @@ class Interactive (cmd.Cmd):
 opt = docopt(__doc__, sys.argv[1:])
 
 if opt["--interactive"]:
+    print(__doc__)
     Interactive().cmdloop()
 
 print(opt)
