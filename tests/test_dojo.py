@@ -113,5 +113,55 @@ class AddPersonTestCases(unittest.TestCase):
         new_unallocated = len(self.dojo.unallocated)
         self.assertEqual((new_unallocated - initial_unallocated), 0)
 
+
+class TestReallocationTestCases(unittest.TestCase):
+        """Tests all the functionality in reallocating an Andelan from their current room;
+        office or residential.
+        """
+        def setUp(self):
+            self.dojo = Dojo()
+
+        def test_reallocate_non_existent_member(self):
+            self.office1 = self.dojo.create_room('Valhalla', 'office')
+            initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
+            self.reallocate = self.dojo.reallocate_person('stf1', 'Valhalla')
+            new_room_capacity = len(self.dojo.all_rooms[0].occupants)
+            self.assertEqual((new_room_capacity - initial_room_capacity), 0)
+
+        def test_reallocate_to_unavailable_room(self):
+            self.office1 = self.dojo.create_room('Hogwarts', 'office')
+            self.staff1 = self.dojo.add_person('Nelson', 'Wafula', 'Staff')
+            initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
+            self.dojo.reallocate_person('stf1', 'Valhalla')
+            new_room_capacity = len(self.dojo.all_rooms[0].occupants)
+            self.assertEqual((new_room_capacity - initial_room_capacity), 0)
+
+        def test_reallocate_successful(self):
+            self.office1 = self.dojo.create_room('Hogwarts', 'office')
+            self.staff1 = self.dojo.add_person('Nelson', 'Wafula', 'Staff')
+            self.dojo.create_room('Valhalla', 'office')
+            initial_room_capacity = len(self.dojo.all_rooms[1].occupants)
+            self.dojo.reallocate_person('stf1', 'Valhalla')
+            new_room_capacity = len(self.dojo.all_rooms[1].occupants)
+            self.assertEqual((new_room_capacity - initial_room_capacity), 1)
+
+        def test_reallocate_to_same_room(self):
+            self.office1 = self.dojo.create_room('Valhalla', 'office')
+            self.staff1 = self.dojo.add_person('Yalfa', 'Hussein', 'Staff')
+            initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
+            self.reallocate = self.dojo.reallocate_person('stf1', 'Valhalla')
+            new_room_capacity = len(self.dojo.all_rooms[0].occupants)
+            self.assertEqual((new_room_capacity - initial_room_capacity), 0)
+
+        def test_reallocate_unallocated_person(self):
+            self.staff1 = self.dojo.add_person('Yalfa', 'Hussein', 'Staff')
+            self.office1 = self.dojo.create_room('Valhalla', 'office')
+            initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
+            self.reallocate = self.dojo.reallocate_person('stf1', 'Valhalla')
+            new_room_capacity = len(self.dojo.all_rooms[0].occupants)
+            self.assertEqual((new_room_capacity - initial_room_capacity), 0)
+
+
+
 if __name__ == "__main__":
     unittest.main()
