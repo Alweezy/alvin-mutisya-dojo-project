@@ -16,8 +16,9 @@ class Dojo(object):
         self.staff = []
         self.fellows = []
         self.all_rooms = []
-        self.all_people = []
         self.unallocated = []
+        self.allocated = []
+        self.all_people = []
 
     def get_room(self, rooms):
         """A function to generate a list of random rooms with space.
@@ -218,3 +219,47 @@ class Dojo(object):
         else:
             print(white_line)
             print(colored('Currently no pending allocations!', 'cyan'))
+
+    def get_current_room(self, person_id):
+        for room in self.all_rooms:
+            for occupant in room.occupants:
+                if occupant.id == person_id:
+                    return room.room_name
+
+    def unallocate_person(self, person_id):
+        """Removes a person from the room they are currently assigned to.
+        :param person_id: A string representing the person's id.
+        :return: person
+        """
+        for room in self.all_rooms:
+            for occupant in room.occupants:
+                if occupant.id == person_id:
+                    person = occupant
+                    room.occupants.remove(occupant)
+                    return person
+
+    def reallocate_person(self, person_id, room_name):
+        """Reallocates a person to a new room.
+        :param person_id: A string representing a person's id.
+        :param room_name: A string representing the name of the room to which reallocation is intended.
+        """
+        self.all_people = self.fellows + self.staff
+        current_room = self.get_current_room(person_id)
+        if current_room != room_name:
+            for person in self.all_people:
+                if person_id == person.id and person not in self.unallocated:
+                    if room_name in [room.room_name for room in self.all_rooms]:
+                        for room in self.all_rooms:
+                            if room.room_name == room_name:
+                                person = self.unallocate_person(person_id)
+                                room.occupants.append(person)
+                                print(white_line)
+                                print(colored('reallocation successful!', 'cyan'))
+                    else:
+                        print(colored('The room  you specified either fully occupied or non existent!', 'red'))
+                else:
+                    print(colored('There is no person in the system with that id or the person had no room.', 'red'))
+        else:
+            print(colored('Person currently occupies in that room!', 'red'))
+
+
