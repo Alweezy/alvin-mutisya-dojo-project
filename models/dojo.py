@@ -224,7 +224,7 @@ class Dojo(object):
         for room in self.all_rooms:
             for occupant in room.occupants:
                 if occupant.id == person_id:
-                    return room.room_name
+                    return room
 
     def unallocate_person(self, person_id):
         """Removes a person from the room they are currently assigned to.
@@ -245,8 +245,9 @@ class Dojo(object):
         """
         self.all_people = self.fellows + self.staff
         current_room = self.get_current_room(person_id)
-        if current_room != room_name:
+        if current_room.room_name != room_name:
             for person in self.all_people:
+                print(person.id)
                 if person_id == person.id and person not in self.unallocated:
                     if room_name in [room.room_name for room in self.all_rooms]:
                         for room in self.all_rooms:
@@ -261,5 +262,6 @@ class Dojo(object):
                     print(colored('There is no person in the system with that id or the person had no room.', 'red'))
         else:
             print(colored('Person currently occupies in that room!', 'red'))
+
 
 
