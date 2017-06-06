@@ -141,7 +141,7 @@ class TestReallocationTestCases(unittest.TestCase):
             self.staff1 = self.dojo.add_person('Nelson', 'Wafula', 'Staff')
             self.dojo.create_room('Valhalla', 'office')
             initial_room_capacity = len(self.dojo.all_rooms[1].occupants)
-            self.dojo.reallocate_person('stf1', 'Valhalla')
+            self.dojo.reallocate_person('stf25', 'Valhalla')
             new_room_capacity = len(self.dojo.all_rooms[1].occupants)
             self.assertEqual((new_room_capacity - initial_room_capacity), 1)
 
@@ -161,6 +161,8 @@ class TestReallocationTestCases(unittest.TestCase):
             new_room_capacity = len(self.dojo.all_rooms[0].occupants)
             self.assertEqual((new_room_capacity - initial_room_capacity), 0)
 
+        def test_staff_to_living_space_reallocation(self):
+                pass
 
 
 if __name__ == "__main__":
