@@ -120,49 +120,47 @@ class TestReallocationTestCases(unittest.TestCase):
         """
         def setUp(self):
             self.dojo = Dojo()
-
-        def test_reallocate_non_existent_member(self):
+            self.dojo.add_person('Nelly', 'Blue', 'Fellow')
             self.office1 = self.dojo.create_room('Valhalla', 'office')
-            initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
-            self.reallocate = self.dojo.reallocate_person('stf1', 'Valhalla')
-            new_room_capacity = len(self.dojo.all_rooms[0].occupants)
-            self.assertEqual((new_room_capacity - initial_room_capacity), 0)
+            self.living1 = self.dojo.create_room('Python', 'livingspace')
+            self.dojo.add_person('Alex', 'Brown', 'Staff')
 
         def test_reallocate_to_unavailable_room(self):
-            self.office1 = self.dojo.create_room('Hogwarts', 'office')
-            self.staff1 = self.dojo.add_person('Nelson', 'Wafula', 'Staff')
             initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
-            self.dojo.reallocate_person('stf1', 'Valhalla')
+            self.dojo.reallocate_person('stf1', 'Oculus')
             new_room_capacity = len(self.dojo.all_rooms[0].occupants)
             self.assertEqual((new_room_capacity - initial_room_capacity), 0)
 
         def test_reallocate_successful(self):
-            self.office1 = self.dojo.create_room('Hogwarts', 'office')
-            self.staff1 = self.dojo.add_person('Nelson', 'Wafula', 'Staff')
-            self.dojo.create_room('Valhalla', 'office')
-            initial_room_capacity = len(self.dojo.all_rooms[1].occupants)
-            self.dojo.reallocate_person('stf24', 'Valhalla')
-            new_room_capacity = len(self.dojo.all_rooms[1].occupants)
+            self.dojo.create_room('Hogwarts', 'office')
+            initial_room_capacity = len(self.dojo.all_rooms[2].occupants)
+            self.dojo.reallocate_person('stf29', 'Hogwarts')
+            new_room_capacity = len(self.dojo.all_rooms[2].occupants)
             self.assertEqual((new_room_capacity - initial_room_capacity), 1)
 
         def test_reallocate_to_same_room(self):
-            self.office1 = self.dojo.create_room('Valhalla', 'office')
-            self.staff1 = self.dojo.add_person('Yalfa', 'Hussein', 'Staff')
             initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
-            self.reallocate = self.dojo.reallocate_person('stf1', 'Valhalla')
+            self.reallocate = self.dojo.reallocate_person('stf28', 'Valhalla')
             new_room_capacity = len(self.dojo.all_rooms[0].occupants)
             self.assertEqual((new_room_capacity - initial_room_capacity), 0)
 
         def test_reallocate_unallocated_person(self):
-            self.staff1 = self.dojo.add_person('Yalfa', 'Hussein', 'Staff')
-            self.office1 = self.dojo.create_room('Valhalla', 'office')
             initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
-            self.reallocate = self.dojo.reallocate_person('stf1', 'Valhalla')
+            self.reallocate = self.dojo.reallocate_person('fel27', 'Valhalla')
             new_room_capacity = len(self.dojo.all_rooms[0].occupants)
             self.assertEqual((new_room_capacity - initial_room_capacity), 0)
 
-        def test_staff_to_living_space_reallocation(self):
-                pass
+        def test_different_room_type_reallocation(self):
+            initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
+            self.reallocate = self.dojo.reallocate_person('stf30', 'Python')
+            new_room_capacity = len(self.dojo.all_rooms[0].occupants)
+            self.assertEqual((new_room_capacity - initial_room_capacity), 0)
+
+        def test_reallocate_non_existent_member(self):
+            initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
+            self.reallocate = self.dojo.reallocate_person('stf21', 'Valhalla')
+            new_room_capacity = len(self.dojo.all_rooms[0].occupants)
+            self.assertEqual((new_room_capacity - initial_room_capacity), 0)
 
 
 if __name__ == "__main__":
