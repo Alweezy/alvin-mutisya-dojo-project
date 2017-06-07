@@ -244,24 +244,23 @@ class Dojo(object):
         :param room_name: A string representing the name of the room to which reallocation is intended.
         """
         self.all_people = self.fellows + self.staff
-        current_room = self.get_current_room(person_id)
-        if current_room.room_name != room_name:
-            for person in self.all_people:
-                print(person.id)
-                if person_id == person.id and person not in self.unallocated:
+        for person in self.all_people:
+            if person_id == person.id and person not in self.unallocated:
+                current_room = self.get_current_room(person_id)
+                if current_room.room_name != room_name:
                     if room_name in [room.room_name for room in self.all_rooms]:
                         for room in self.all_rooms:
                             if room.room_name == room_name:
-                                person = self.unallocate_person(person_id)
-                                room.occupants.append(person)
-                                print(white_line)
-                                print(colored('reallocation successful!', 'cyan'))
+                                if current_room.room_type == room.room_type:
+                                    person = self.unallocate_person(person_id)
+                                    room.occupants.append(person)
+                                    print(white_line)
+                                    print(colored('reallocation successful!, new room:' + room_name, 'cyan'))
+                                else:
+                                    print(colored('Not allowed!, can only reallocate to a similar room type!', 'red'))
                     else:
                         print(colored('The room  you specified either fully occupied or non existent!', 'red'))
                 else:
-                    print(colored('There is no person in the system with that id or the person had no room.', 'red'))
-        else:
-            print(colored('Person currently occupies in that room!', 'red'))
-
-
-
+                    print(colored('Person currently occupies in that room!', 'red'))
+            else:
+                print(colored('There is no person in the system with that id or the person had no room.', 'red'))
