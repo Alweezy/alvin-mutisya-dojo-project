@@ -69,12 +69,13 @@ class Dojo(object):
         :param occupation: A string representing the persons's   type (Fellow/Staff)
         :param wants_accommodation: An optional string representing a fellow's accommodation
         """
+
         self.first_name = first_name
         self.last_name = last_name
         self.occupation = occupation
         self. wants_accommodation = wants_accommodation
         self.person_name = self.first_name + self.last_name
-        if occupation is 'Fellow':
+        if occupation == 'Fellow':
             if self.person_name not in [person.fname + person.lname for person in self.fellows]:
                 person = Fellow(first_name, last_name, occupation, wants_accommodation)
                 self.fellows.append(person)
@@ -131,7 +132,7 @@ class Dojo(object):
             else:
                 print(white_line)
                 print(colored('A fellow with that name already exists', 'red'))
-        if occupation is 'Staff':
+        if occupation == 'Staff':
             if self.person_name not in [person.fname + person.lname for person in self.staff]:
                 person = Staff(first_name, last_name, occupation)
                 print(white_line)
@@ -245,6 +246,7 @@ class Dojo(object):
         """
         self.all_people = self.fellows + self.staff
         for person in self.all_people:
+            print(person.id)
             if person_id == person.id and person not in self.unallocated:
                 current_room = self.get_current_room(person_id)
                 if current_room.room_name != room_name:
@@ -264,3 +266,25 @@ class Dojo(object):
                     print(colored('Person currently occupies in that room!', 'red'))
             else:
                 print(colored('There is no person in the system with that id or the person had no room.', 'red'))
+
+    def load_people(self, file_name):
+        """Loads people from a text file
+        :param file_name: A string representing the name of the file from which the loading should take place
+        :return:
+        """
+        try:
+            with open(file_name, 'r') as list_file:
+                people = list_file.readlines()
+                for person in people:
+                    attributes = person.split()
+                    if attributes:
+                        first_name = attributes[0].title()
+                        last_name = attributes[1].title()
+                        occupation = attributes[2].title()
+                        if len(attributes) == 4:
+                            wants_accommodation = attributes[3]
+                            self.add_person(first_name, last_name, occupation, wants_accommodation)
+                        else:
+                            self.add_person(first_name, last_name, occupation)
+        except IOError as e:
+            print('There exists no file with such a name!')
