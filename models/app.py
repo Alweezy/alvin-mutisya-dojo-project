@@ -119,6 +119,19 @@ class Interactive (cmd.Cmd):
         filename = args["--o"]
         dojo.print_unallocated(filename)
 
+    @docopt_cmd
+    def do_reallocate_person(self, args):
+        """Usage: reallocate_person <employee_id> <new_room_name>"""
+        person_id = args["<employee_id>"]
+        room_name = args["<new_room_name>"]
+        dojo.reallocate_person(person_id, room_name)
+
+    @docopt_cmd
+    def do_load_people(self, args):
+        """Usage: load_people <file_name>"""
+        file_name = args["<file_name>"]
+        dojo.load_people(file_name)
+
     def do_quit(self, arg):
         """Quits out of the interactive mode"""
         print(colored(('-' * 28) + 'BYE' + ('-' * 28), 'white'))
