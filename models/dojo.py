@@ -286,5 +286,5 @@ class Dojo(object):
                             self.add_person(first_name, last_name, occupation, wants_accommodation)
                         else:
                             self.add_person(first_name, last_name, occupation)
-        except IOError as e:
+        except IOError:
             print('There exists no file with such a name!')
