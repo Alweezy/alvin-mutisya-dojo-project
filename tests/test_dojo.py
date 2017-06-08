@@ -186,6 +186,5 @@ class TesTCasesLoadPeople(unittest.TestCase):
         self.assertEqual((new_room_capacity - initial_room_capacity), 0)
 
 
-
 if __name__ == "__main__":
     unittest.main()
