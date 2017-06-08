@@ -115,52 +115,76 @@ class AddPersonTestCases(unittest.TestCase):
 
 
 class TestReallocationTestCases(unittest.TestCase):
-        """Tests all the functionality in reallocating an Andelan from their current room;
-        office or residential.
-        """
-        def setUp(self):
-            self.dojo = Dojo()
-            self.dojo.add_person('Nelly', 'Blue', 'Fellow')
-            self.office1 = self.dojo.create_room('Valhalla', 'office')
-            self.living1 = self.dojo.create_room('Python', 'livingspace')
-            self.dojo.add_person('Alex', 'Brown', 'Staff')
+    """Tests all the functionality in reallocating an Andelan from their current room;
+    office or residential.
+    """
 
-        def test_reallocate_to_unavailable_room(self):
-            initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
-            self.dojo.reallocate_person('stf1', 'Oculus')
-            new_room_capacity = len(self.dojo.all_rooms[0].occupants)
-            self.assertEqual((new_room_capacity - initial_room_capacity), 0)
+    def setUp(self):
+        self.dojo = Dojo()
+        self.dojo.add_person('Nelly', 'Blue', 'Fellow')
+        self.office1 = self.dojo.create_room('Valhalla', 'office')
+        self.living1 = self.dojo.create_room('Python', 'livingspace')
+        self.dojo.add_person('Alex', 'Brown', 'Staff')
 
-        def test_reallocate_successful(self):
-            self.dojo.create_room('Hogwarts', 'office')
-            initial_room_capacity = len(self.dojo.all_rooms[2].occupants)
-            self.dojo.reallocate_person('stf29', 'Hogwarts')
-            new_room_capacity = len(self.dojo.all_rooms[2].occupants)
-            self.assertEqual((new_room_capacity - initial_room_capacity), 1)
+    def test_reallocate_to_unavailable_room(self):
+        initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
+        self.dojo.reallocate_person('stf1', 'Oculus')
+        new_room_capacity = len(self.dojo.all_rooms[0].occupants)
+        self.assertEqual((new_room_capacity - initial_room_capacity), 0)
 
-        def test_reallocate_to_same_room(self):
-            initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
-            self.reallocate = self.dojo.reallocate_person('stf28', 'Valhalla')
-            new_room_capacity = len(self.dojo.all_rooms[0].occupants)
-            self.assertEqual((new_room_capacity - initial_room_capacity), 0)
+    def test_reallocate_successful(self):
+        self.dojo.create_room('Hogwarts', 'office')
+        initial_room_capacity = len(self.dojo.all_rooms[2].occupants)
+        self.dojo.reallocate_person('stf36', 'Hogwarts')
+        new_room_capacity = len(self.dojo.all_rooms[2].occupants)
+        self.assertEqual((new_room_capacity - initial_room_capacity), 1)
 
-        def test_reallocate_unallocated_person(self):
-            initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
-            self.reallocate = self.dojo.reallocate_person('fel27', 'Valhalla')
-            new_room_capacity = len(self.dojo.all_rooms[0].occupants)
-            self.assertEqual((new_room_capacity - initial_room_capacity), 0)
+    def test_reallocate_to_same_room(self):
+        initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
+        self.reallocate = self.dojo.reallocate_person('stf28', 'Valhalla')
+        new_room_capacity = len(self.dojo.all_rooms[0].occupants)
+        self.assertEqual((new_room_capacity - initial_room_capacity), 0)
 
-        def test_different_room_type_reallocation(self):
-            initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
-            self.reallocate = self.dojo.reallocate_person('stf30', 'Python')
-            new_room_capacity = len(self.dojo.all_rooms[0].occupants)
-            self.assertEqual((new_room_capacity - initial_room_capacity), 0)
+    def test_reallocate_unallocated_person(self):
+        initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
+        self.reallocate = self.dojo.reallocate_person('fel27', 'Valhalla')
+        new_room_capacity = len(self.dojo.all_rooms[0].occupants)
+        self.assertEqual((new_room_capacity - initial_room_capacity), 0)
 
-        def test_reallocate_non_existent_member(self):
-            initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
-            self.reallocate = self.dojo.reallocate_person('stf21', 'Valhalla')
-            new_room_capacity = len(self.dojo.all_rooms[0].occupants)
-            self.assertEqual((new_room_capacity - initial_room_capacity), 0)
+    def test_different_room_type_reallocation(self):
+        initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
+        self.reallocate = self.dojo.reallocate_person('stf30', 'Python')
+        new_room_capacity = len(self.dojo.all_rooms[0].occupants)
+        self.assertEqual((new_room_capacity - initial_room_capacity), 0)
+
+    def test_reallocate_non_existent_member(self):
+        initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
+        self.reallocate = self.dojo.reallocate_person('stf21', 'Valhalla')
+        new_room_capacity = len(self.dojo.all_rooms[0].occupants)
+        self.assertEqual((new_room_capacity - initial_room_capacity), 0)
+
+
+class TesTCasesLoadPeople(unittest.TestCase):
+    def setUp(self):
+        """Instantiates the class Dojo to perform tests for load people"""
+        self.dojo = Dojo()
+
+    def test_people_load_successful(self):
+        self.dojo.create_room('Camelot', 'office')
+        initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
+        self.dojo.load_people('./models/allocation.txt')
+        new_room_capacity = len(self.dojo.all_rooms[0].occupants)
+        print(new_room_capacity)
+        self.assertEqual((new_room_capacity - initial_room_capacity), 6)
+
+    def test_load_people_from_non_existent_file(self):
+        self.dojo.create_room('Chambers', 'office')
+        initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
+        self.dojo.load_people('./models/no_file.txt')
+        new_room_capacity = len(self.dojo.all_rooms[0].occupants)
+        print(new_room_capacity)
+        self.assertEqual((new_room_capacity - initial_room_capacity), 0)
+
 
 
 if __name__ == "__main__":
