@@ -6,6 +6,7 @@ install:
  - "pip install python-coveralls"
 script:
  - nosetests --with-coverage
-after-success: coveralls
+after-success:
+    - coveralls
 
 
