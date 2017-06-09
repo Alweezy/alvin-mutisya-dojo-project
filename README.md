@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.org/Alweezy/alvin-mutisya-dojo-project.svg?branch=develop)](https://travis-ci.org/Alweezy/alvin-mutisya-dojo-project)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://opensource.org/licenses/MIT)
-[![Jenkins coverage](https://img.shields.io/jenkins/c/https/jenkins.qa.ubuntu.com/view/Utopic/view/All/job/address-book-service-utopic-i386-ci.svg)]()
+[![Coverage Status](https://coveralls.io/repos/github/Alweezy/alvin-mutisya-dojo-project/badge.svg?branch=develop)](https://coveralls.io/github/Alweezy/alvin-mutisya-dojo-project?branch=develop)
 ---
 
 ![Andela Logo](https://3xyh3sqxv063a8xzo5uk2zn1-wpengine.netdna-ssl.com/wp-content/uploads/2016/01/Andela-logo-landscape-blue-400px.png)
