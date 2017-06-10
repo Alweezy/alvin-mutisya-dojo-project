@@ -168,10 +168,12 @@ class Dojo(object):
             if room.room_name == room_name:
                 print(room.room_name)
                 print(white_line)
+                print('Employee id' + '    ' + 'Employee Name')
+                print(white_line)
                 # check if room has occupants
                 if room.occupants:
                     for person in room.occupants:
-                        print(person.fname + ' ' + person.lname)
+                        print(person.id + '           ' + person.fname + ' ' + person.lname)
                 else:
                     print(colored('Room has currently no occupants!', 'red'))
 
@@ -287,4 +289,4 @@ class Dojo(object):
                         else:
                             self.add_person(first_name, last_name, occupation)
         except IOError:
-            print('There exists no file with such a name!')
+            print(colored('There exists no file with such a name!'))
