@@ -253,23 +253,23 @@ class Dojo(object):
             if person_id == person.id and person not in self.unallocated:
                 current_rooms = self.get_current_room(person_id)
                 for current_room in current_rooms:
-                    if current_room.room_name != room_name:
-                        if room_name in [room.room_name for room in self.all_rooms]:
-                            for room in self.all_rooms:
-                                if room.room_name == room_name:
-                                    if current_room.room_type == room.room_type:
+                    if room_name in [room.room_name for room in self.all_rooms]:
+                        for room in self.all_rooms:
+                            if current_room.room_type == room.room_type:
+                                if room_name == room.room_name:
+                                    if current_room.room_name != room_name:
                                         person = self.unallocate_person(person_id)
                                         room.occupants.append(person)
                                         print(white_line)
                                         print(colored('reallocation successful!, new room:' + room_name, 'cyan'))
                                     else:
-                                        print(colored('Not allowed!, can only reallocate to a similar room type!', 'red'))
-                        else:
-                            print(colored('The room  you specified either fully occupied or non existent!', 'red'))
+                                        print(colored('Person currently occupies that room!', 'red'))
+                            else:
+                                print(colored('Not allowed!, can only reallocate to a similar room type!', 'red'))
                     else:
-                        print(colored('Person currently occupies in that room!', 'red'))
-                else:
-                    print(colored('There is no person in the system with that id or the person had no room.', 'red'))
+                        print(colored('The room  you specified either fully occupied or non existent!', 'red'))
+            else:
+                print(colored('There is no person in the system with that id or the person had no room.', 'red'))
 
     def load_people(self, file_name):
         """Loads people from a text file
