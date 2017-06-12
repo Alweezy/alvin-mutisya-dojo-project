@@ -166,7 +166,7 @@ class Dojo(object):
             print(colored('The room you entered is not in the system!', 'red'))
         for room in self.all_rooms:
             if room.room_name == room_name:
-                print(room.room_name)
+                print(room.room_name + ' (' + room.room_type.title() + ')')
                 print(white_line)
                 print('Employee id' + '    ' + 'Employee Name')
                 print(white_line)
