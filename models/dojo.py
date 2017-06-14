@@ -270,32 +270,11 @@ class Dojo(object):
                 else:
                     return room.room_type, self.living_unallocated
 
-
     def reallocate_person(self, person_id, room_name):
         """Reallocates a person to a new room.
         :param person_id: A string representing a person's id.
         :param room_name: A string representing the name of the room to which reallocation is intended.
         """
-        # self.all_people = self.fellows + self.staff
-        # if room_name in [room.room_name for room in self.all_rooms]:
-        #     current_room_type, unallocated = self.get_room_type(room_name)
-        #     for person in self.all_people:
-        #         if person_id == person.id and person not in unallocated:
-        #             current_room = self.get_current_room(person_id, current_room_type)
-        #             if room_name in [room.room_name for room in self.all_rooms]:
-        #                 for room in self.all_rooms:
-        #                     if room_name == room.room_name:
-        #                         if current_room.room_name != room_name:
-        #                             person = self.unallocate_person(person_id)
-        #                             room.occupants.append(person)
-        #                             print(white_line)
-        #                             return colored('reallocation successful!, new room:' + room_name, 'cyan')
-        #                         else:
-        #                             return colored('Person currently occupies that room!', 'red')
-        #         else:
-        #             return colored('There is no person in the system with that id or the person had no room.', 'red')
-        # else:
-        #     return colored('The room  you specified is not existent!', 'red')
         self.all_people = self.fellows + self.staff
         if room_name in [room.room_name for room in self.all_rooms]:
             for person in self.all_people:
