@@ -16,7 +16,8 @@ class Dojo(object):
         self.staff = []
         self.fellows = []
         self.all_rooms = []
-        self.unallocated = []
+        self.office_unallocated = []
+        self.living_unallocated = []
         self.allocated = []
         self.all_people = []
 
@@ -97,9 +98,9 @@ class Dojo(object):
                                       + work_room, 'cyan'))
                     else:
                         # Add person to a list of unallocated if they got no office space.
-                        self.unallocated.append(person)
+                        self.office_unallocated.append(person)
                         print(white_line)
-                        print(colored('All offices are occupied, added to unallocated list', 'red'))
+                        print(colored('All offices are occupied, added to office_unallocated list', 'red'))
                 else:
                     # if a fellow does not want  accommodation then they get only office space
                     work_room = self.get_room(self.offices)
@@ -114,9 +115,9 @@ class Dojo(object):
                                       ' has been added to ' + work_room, 'cyan'))
                     else:
                         # Add person to a list of unallocated if they got no office space.
-                        self.unallocated.append(person)
+                        self.office_unallocated.append(person)
                         print(white_line)
-                        print(colored('All offices are occupied, added to unallocated list', 'red'))
+                        print(colored('All offices are occupied, added to office_unallocated list', 'red'))
                     if living_room:
                         for room in self.livingrooms:
                             if room.room_name == living_room:
@@ -126,9 +127,9 @@ class Dojo(object):
                                       ' has been added to ' + living_room, 'cyan'))
                     else:
                         # Add person to a list of unallocated if they got no office space.
-                        self.unallocated.append(person)
+                        self.living_unallocated.append(person)
                         print(white_line)
-                        print(colored('All living rooms  are occupied, added to unallocated list', 'red'))
+                        print(colored('All living rooms  are occupied, added to living_unallocated list', 'red'))
             else:
                 print(white_line)
                 print(colored('A fellow with that name already exists', 'red'))
@@ -148,9 +149,9 @@ class Dojo(object):
                                           ' has been added to ' + work_room, 'cyan'))
                 else:
                     # Add person to a list of unallocated if they got no office space.
-                    self.unallocated.append(person)
+                    self.office_unallocated.append(person)
                     print(white_line)
-                    print(colored('All offices are occupied, added to unallocated list', 'red'))
+                    print(colored('All offices are occupied, added to office_unallocated list', 'red'))
             else:
                 print(white_line)
                 print(colored('A member of staff with that name already exists!', 'red'))
@@ -206,12 +207,26 @@ class Dojo(object):
     def print_unallocated(self, filename):
         # collect all file info as a string
         write_to_file = ''
-        if self.unallocated:
+        if self.office_unallocated:
+            print(colored('Offices', 'cyan'))
             print(white_line)
-            for person in self.unallocated:
+            for person in self.office_unallocated:
                 person_name = person.fname + ' ' + person.lname
                 write_to_file += person_name + '\n'
-                print(person_name)
+                print(person.id + ' ' + person_name)
+            # check if user has opted to print list
+            if filename:
+                file_name = filename + ".txt"
+                file_output = open(file_name, 'w')
+                file_output.write(write_to_file)
+                file_output.close()
+        if self.living_unallocated:
+            print(colored('Living Rooms', 'cyan'))
+            print(white_line)
+            for person in self.living_unallocated:
+                person_name = person.fname + ' ' + person.lname
+                write_to_file += person_name + '\n'
+                print(person.id + ' ' + person_name)
             # check if user has opted to print list
             if filename:
                 file_name = filename + ".txt"
@@ -223,13 +238,13 @@ class Dojo(object):
             print(white_line)
             print(colored('Currently no pending allocations!', 'cyan'))
 
-    def get_current_room(self, person_id):
-        rooms = []
+    def get_current_room(self, person_id, room_type):
         for room in self.all_rooms:
-            for occupant in room.occupants:
-                if occupant.id == person_id:
-                    rooms.append(room)
-        return rooms
+            if room.room_type == room_type:
+                for occupant in room.occupants:
+                    if occupant.id == person_id:
+                        return room
+            return False
 
     def unallocate_person(self, person_id):
         """Removes a person from the room they are currently assigned to.
@@ -243,33 +258,68 @@ class Dojo(object):
                     room.occupants.remove(occupant)
                     return person
 
+    def get_room_type(self, room_name):
+        """Gets the room_type of the room to which reallocation is intended
+        :param room_name:
+        :return: room_type
+        """
+        for room in self.all_rooms:
+            if room_name == room.room_name:
+                if room.room_type == 'office':
+                    return room.room_type, self.office_unallocated
+                else:
+                    return room.room_type, self.living_unallocated
+
+
     def reallocate_person(self, person_id, room_name):
         """Reallocates a person to a new room.
         :param person_id: A string representing a person's id.
         :param room_name: A string representing the name of the room to which reallocation is intended.
         """
+        # self.all_people = self.fellows + self.staff
+        # if room_name in [room.room_name for room in self.all_rooms]:
+        #     current_room_type, unallocated = self.get_room_type(room_name)
+        #     for person in self.all_people:
+        #         if person_id == person.id and person not in unallocated:
+        #             current_room = self.get_current_room(person_id, current_room_type)
+        #             if room_name in [room.room_name for room in self.all_rooms]:
+        #                 for room in self.all_rooms:
+        #                     if room_name == room.room_name:
+        #                         if current_room.room_name != room_name:
+        #                             person = self.unallocate_person(person_id)
+        #                             room.occupants.append(person)
+        #                             print(white_line)
+        #                             return colored('reallocation successful!, new room:' + room_name, 'cyan')
+        #                         else:
+        #                             return colored('Person currently occupies that room!', 'red')
+        #         else:
+        #             return colored('There is no person in the system with that id or the person had no room.', 'red')
+        # else:
+        #     return colored('The room  you specified is not existent!', 'red')
         self.all_people = self.fellows + self.staff
-        for person in self.all_people:
-            if person_id == person.id and person not in self.unallocated:
-                current_rooms = self.get_current_room(person_id)
-                for current_room in current_rooms:
-                    if room_name in [room.room_name for room in self.all_rooms]:
+        if room_name in [room.room_name for room in self.all_rooms]:
+            for person in self.all_people:
+                if person_id == person.id:
+                    intended_room_type, unallocated = self.get_room_type(room_name)
+                    current_room = self.get_current_room(person_id, intended_room_type)
+                    if person not in unallocated:
                         for room in self.all_rooms:
-                            if current_room.room_type == room.room_type:
-                                if room_name == room.room_name:
-                                    if current_room.room_name != room_name:
+                            if room_name == room.room_name:
+                                if room.room_type == intended_room_type:
+                                    if room_name != current_room.room_name:
                                         person = self.unallocate_person(person_id)
                                         room.occupants.append(person)
                                         print(white_line)
-                                        print(colored('reallocation successful!, new room:' + room_name, 'cyan'))
+                                        return colored('reallocation successful!, new room: ' + room_name, 'cyan')
                                     else:
-                                        print(colored('Person currently occupies that room!', 'red'))
-                            else:
-                                print(colored('Not allowed!, can only reallocate to a similar room type!', 'red'))
+                                        return colored('Person already occupies that room!', 'red')
+                                else:
+                                    return colored('Reallocation for similar room_types only!', 'red')
                     else:
-                        print(colored('The room  you specified either fully occupied or non existent!', 'red'))
-            else:
-                print(colored('There is no person in the system with that id or the person had no room.', 'red'))
+                        return colored('Only persons with rooms can be reallocated!', 'red')
+            return colored('There is no person in the system with such an id!', 'red')
+        else:
+            return colored('The room specified does not exist!', 'red')
 
     def load_people(self, file_name):
         """Loads people from a text file
