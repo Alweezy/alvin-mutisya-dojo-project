@@ -108,7 +108,7 @@ class Interactive (cmd.Cmd):
             dojo.print_room(room_name)
 
     @docopt_cmd
-    def do_print_allocation(self, args):
+    def do_print_allocations(self, args):
         """Usage: print_allocations [--o=filename.txt]"""
         filename = args["--o"]
         dojo.print_allocation(filename)
@@ -124,7 +124,7 @@ class Interactive (cmd.Cmd):
         """Usage: reallocate_person <employee_id> <new_room_name>"""
         person_id = args["<employee_id>"]
         room_name = args["<new_room_name>"]
-        dojo.reallocate_person(person_id, room_name)
+        print(dojo.reallocate_person(person_id, room_name))
 
     @docopt_cmd
     def do_load_people(self, args):
