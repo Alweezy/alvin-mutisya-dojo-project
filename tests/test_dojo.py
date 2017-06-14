@@ -108,9 +108,9 @@ class AddPersonTestCases(unittest.TestCase):
         self.assertEqual((new_room_capacity - initial_room_capacity), 1)
 
     def test_unallocated_persons(self):
-        initial_unallocated = len(self.dojo.unallocated)
+        initial_unallocated = len(self.dojo.office_unallocated)
         self.staff = self.dojo.add_person('Naomi', 'Dollar', 'Staff')
-        new_unallocated = len(self.dojo.unallocated)
+        new_unallocated = len(self.dojo.office_unallocated)
         self.assertEqual((new_unallocated - initial_unallocated), 0)
 
 
@@ -133,9 +133,10 @@ class TestReallocationTestCases(unittest.TestCase):
         self.assertEqual((new_room_capacity - initial_room_capacity), 0)
 
     def test_reallocate_successful(self):
+        print(self.dojo.all_rooms[0].room_type)
         self.dojo.create_room('Hogwarts', 'office')
         initial_room_capacity = len(self.dojo.all_rooms[2].occupants)
-        self.dojo.reallocate_person('stf36', 'Hogwarts')
+        print(self.dojo.reallocate_person('stf36', 'Hogwarts'))
         new_room_capacity = len(self.dojo.all_rooms[2].occupants)
         self.assertEqual((new_room_capacity - initial_room_capacity), 1)
 
