@@ -185,7 +185,7 @@ class Dojo(object):
         write_to_file = ''
         for room in self.all_rooms:
             if room.occupants:
-                print(room.room_name)
+                print(colored(room.room_name + '(' + room.room_type.title() + ')', 'cyan'))
                 write_to_file += room.room_name + '\n'
                 print(white_line)
                 for person in room.occupants:
@@ -201,8 +201,8 @@ class Dojo(object):
                     file_output.close()
                     return
             else:
-                print(room.room_name)
-                print(colored('This room has no occupants', 'cyan'))
+                print(colored(room.room_name + '(' + room.room_type.title() + ')', 'cyan'))
+                print(colored('This room has no occupants', 'red'))
 
     def print_unallocated(self, filename):
         # collect all file info as a string
@@ -244,7 +244,7 @@ class Dojo(object):
                 for occupant in room.occupants:
                     if occupant.id == person_id:
                         return room
-            return False
+        return False
 
     def unallocate_person(self, person_id):
         """Removes a person from the room they are currently assigned to.
