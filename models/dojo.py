@@ -191,7 +191,7 @@ class Dojo(object):
                 for person in room.occupants:
                     person_name = person.fname + ' ' + person.lname
                     write_to_file += person_name + '\n'
-                    print(person_name)
+                    print(person.id + ' ' + person_name)
 
                 # check if user has opted to print list
                 if filename:
