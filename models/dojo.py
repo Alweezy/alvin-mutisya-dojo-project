@@ -85,7 +85,7 @@ class Dojo(object):
                 print(colored(first_name + ' ' + last_name + ' has been added successfully!', 'cyan'))
                 # check if fellow wants accommodation, it is set to 'N' by default
                 accommodation = person.wants_accommodation
-                if accommodation is None:
+                if accommodation is None or accommodation != 'Y':
                     # if a fellow does not want  accommodation then they get only office space
                     work_room = self.get_room(self.offices)
                     # if there is no available office space
@@ -130,7 +130,7 @@ class Dojo(object):
                         # Add person to a list of unallocated if they got no office space.
                         self.living_unallocated.append(person)
                         print(white_line)
-                        print(colored('Office space unavailable, added to accommodation waiting list', 'red'))
+                        print(colored('Living space unavailable, added to accommodation waiting list', 'red'))
             else:
                 print(white_line)
                 print(colored('A fellow with that name already exists', 'red'))
@@ -189,10 +189,11 @@ class Dojo(object):
                 print(colored(room.room_name + '(' + room.room_type.title() + ')', 'cyan'))
                 write_to_file += room.room_name + '\n'
                 print(white_line)
+                print('Employee id' + '    ' + 'Employee Name')
+                print(white_line)
                 for person in room.occupants:
                     person_name = person.fname + ' ' + person.lname
                     write_to_file += person_name + '\n'
-                    print('Employee id' + '    ' + 'Employee Name')
                     print(person.id + '           ' + person.fname + ' ' + person.lname)
 
                 # check if user has opted to print list
@@ -210,6 +211,7 @@ class Dojo(object):
         # collect all file info as a string
         write_to_file = ''
         if self.office_unallocated:
+            print(white_line)
             print(colored('OFFICES WAITING LIST', 'cyan'))
             print(white_line)
             print('Employee id' + '    ' + 'Employee Name')
@@ -225,6 +227,7 @@ class Dojo(object):
                 file_output.write(write_to_file)
                 file_output.close()
         if self.living_unallocated:
+            print(white_line)
             print(colored('LIVING ROOMS WAITING LIST', 'cyan'))
             print(white_line)
             print('Employee id' + '    ' + 'Employee Name')
