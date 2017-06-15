@@ -275,6 +275,11 @@ class Dojo(object):
 
     @staticmethod
     def check_current_room_object(current_room):
+        """Catches the error in current room to prevent passing of a string to function call
+        in reallocate_person
+        :param current_room: A string representing the room currently occupied by a person
+        :return: boolean: This depends on whether current room is string or object.
+        """
         try:
             if current_room.__dict__:
                 return True
