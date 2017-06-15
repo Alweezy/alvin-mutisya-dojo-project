@@ -101,7 +101,7 @@ class Dojo(object):
                         # Add person to a list of unallocated if they got no office space.
                         self.office_unallocated.append(person)
                         print(white_line)
-                        print(colored('All offices are occupied, added to office_unallocated list', 'red'))
+                        print(colored('Office space unavailable, added to office waiting list', 'red'))
                 else:
                     # if a fellow does not want  accommodation then they get only office space
                     work_room = self.get_room(self.offices)
@@ -118,7 +118,7 @@ class Dojo(object):
                         # Add person to a list of unallocated if they got no office space.
                         self.office_unallocated.append(person)
                         print(white_line)
-                        print(colored('All offices are occupied, added to office_unallocated list', 'red'))
+                        print(colored('Office space unavailable, added to office waiting list', 'red'))
                     if living_room:
                         for room in self.livingrooms:
                             if room.room_name == living_room:
@@ -130,7 +130,7 @@ class Dojo(object):
                         # Add person to a list of unallocated if they got no office space.
                         self.living_unallocated.append(person)
                         print(white_line)
-                        print(colored('All living rooms  are occupied, added to living_unallocated list', 'red'))
+                        print(colored('Office space unavailable, added to accommodation waiting list', 'red'))
             else:
                 print(white_line)
                 print(colored('A fellow with that name already exists', 'red'))
@@ -152,7 +152,7 @@ class Dojo(object):
                     # Add person to a list of unallocated if they got no office space.
                     self.office_unallocated.append(person)
                     print(white_line)
-                    print(colored('All offices are occupied, added to office_unallocated list', 'red'))
+                    print(colored('Office space unavailable, added to office waiting list', 'red'))
             else:
                 print(white_line)
                 print(colored('A member of staff with that name already exists!', 'red'))
@@ -192,7 +192,8 @@ class Dojo(object):
                 for person in room.occupants:
                     person_name = person.fname + ' ' + person.lname
                     write_to_file += person_name + '\n'
-                    print(person.id + ' ' + person_name)
+                    print('Employee id' + '    ' + 'Employee Name')
+                    print(person.id + '           ' + person.fname + ' ' + person.lname)
 
                 # check if user has opted to print list
                 if filename:
@@ -209,12 +210,14 @@ class Dojo(object):
         # collect all file info as a string
         write_to_file = ''
         if self.office_unallocated:
-            print(colored('Offices', 'cyan'))
+            print(colored('OFFICES WAITING LIST', 'cyan'))
+            print(white_line)
+            print('Employee id' + '    ' + 'Employee Name')
             print(white_line)
             for person in self.office_unallocated:
                 person_name = person.fname + ' ' + person.lname
                 write_to_file += person_name + '\n'
-                print(person.id + ' ' + person_name)
+                print(person.id + '           ' + person.fname + ' ' + person.lname)
             # check if user has opted to print list
             if filename:
                 file_name = filename + ".txt"
@@ -222,12 +225,14 @@ class Dojo(object):
                 file_output.write(write_to_file)
                 file_output.close()
         if self.living_unallocated:
-            print(colored('Living Rooms', 'cyan'))
+            print(colored('LIVING ROOMS WAITING LIST', 'cyan'))
+            print(white_line)
+            print('Employee id' + '    ' + 'Employee Name')
             print(white_line)
             for person in self.living_unallocated:
                 person_name = person.fname + ' ' + person.lname
                 write_to_file += person_name + '\n'
-                print(person.id + ' ' + person_name)
+                print(person.id + '           ' + person.fname + ' ' + person.lname)
             # check if user has opted to print list
             if filename:
                 file_name = filename + ".txt"
