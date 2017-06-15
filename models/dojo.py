@@ -3,6 +3,7 @@ import random
 from people import Staff, Fellow
 from rooms import Office, LivingSpace
 from os import path
+import types
 from termcolor import colored
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
@@ -244,19 +245,21 @@ class Dojo(object):
                 for occupant in room.occupants:
                     if occupant.id == person_id:
                         return room
-        return False
+        return 'Person does not have a room of type {}'.format(room_type)
 
-    def unallocate_person(self, person_id):
+    def unallocate_person(self, person_id, intended_room_type):
         """Removes a person from the room they are currently assigned to.
+        :param intended_room_type:
         :param person_id: A string representing the person's id.
         :return: person
         """
         for room in self.all_rooms:
-            for occupant in room.occupants:
-                if occupant.id == person_id:
-                    person = occupant
-                    room.occupants.remove(occupant)
-                    return person
+            if room.room_type == intended_room_type:
+                for occupant in room.occupants:
+                    if occupant.id == person_id:
+                        person = occupant
+                        room.occupants.remove(occupant)
+                        return person
 
     def get_room_type(self, room_name):
         """Gets the room_type of the room to which reallocation is intended
@@ -269,6 +272,14 @@ class Dojo(object):
                     return room.room_type, self.office_unallocated
                 else:
                     return room.room_type, self.living_unallocated
+
+    @staticmethod
+    def check_current_room_object(current_room):
+        try:
+            if current_room.__dict__:
+                return True
+        except AttributeError:
+            return False
 
     def reallocate_person(self, person_id, room_name):
         """Reallocates a person to a new room.
@@ -285,15 +296,16 @@ class Dojo(object):
                         for room in self.all_rooms:
                             if room_name == room.room_name:
                                 if room.room_type == intended_room_type:
-                                    if room_name != current_room.room_name:
-                                        person = self.unallocate_person(person_id)
-                                        room.occupants.append(person)
-                                        print(white_line)
-                                        return colored('reallocation successful!, new room: ' + room_name, 'cyan')
+                                    if self.check_current_room_object(current_room):
+                                        if room_name != current_room.room_name:
+                                            person = self.unallocate_person(person_id, intended_room_type)
+                                            room.occupants.append(person)
+                                            print(white_line)
+                                            return colored('reallocation successful!, new room: ' + room_name, 'cyan')
+                                        else:
+                                            return colored('Person already occupies that room!', 'red')
                                     else:
-                                        return colored('Person already occupies that room!', 'red')
-                                else:
-                                    return colored('Reallocation for similar room_types only!', 'red')
+                                        return colored('Reallocation for similar room_types only!', 'red')
                     else:
                         return colored('Only persons with rooms can be reallocated!', 'red')
             return colored('There is no person in the system with such an id!', 'red')
