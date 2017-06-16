@@ -260,7 +260,7 @@ class Dojo(object):
         """Removes a person from the room they are currently assigned to.
         :param intended_room_type:
         :param person_id: A string representing the person's id.
-        :return: person
+        :return: person: The person to be reallocated.
         """
         for room in self.all_rooms:
             if room.room_type == intended_room_type:
