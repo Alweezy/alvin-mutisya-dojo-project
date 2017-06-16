@@ -180,7 +180,8 @@ class Dojo(object):
                     print(colored('Room has currently no occupants!', 'red'))
 
     def print_allocation(self, filename):
-        """Gets all the people in the dojo facility who have been awarded room and office allocations.
+        """Gets all the people in the dojo facility who have been awarded room
+        and office allocations.
         """
         # writing to file
         write_to_file = ''
@@ -271,8 +272,8 @@ class Dojo(object):
 
     def get_room_type(self, room_name):
         """Gets the room_type of the room to which reallocation is intended
-        :param room_name:
-        :return: room_type
+        :param room_name: The name of the room to reallocate to.
+        :return: room_type: The name type of the room to reallocate
         """
         for room in self.all_rooms:
             if room_name == room.room_name:
@@ -297,7 +298,8 @@ class Dojo(object):
     def reallocate_person(self, person_id, room_name):
         """Reallocates a person to a new room.
         :param person_id: A string representing a person's id.
-        :param room_name: A string representing the name of the room to which reallocation is intended.
+        :param room_name: A string representing the name of the room to which
+        reallocation is intended.
         """
         self.all_people = self.fellows + self.staff
         if room_name in [room.room_name for room in self.all_rooms]:
@@ -327,8 +329,8 @@ class Dojo(object):
 
     def load_people(self, file_name):
         """Loads people from a text file
-        :param file_name: A string representing the name of the file from which the loading should take place
-        :return:
+        :param file_name: A string representing the name of the file from which
+        the loading should take place
         """
         try:
             with open(file_name, 'r') as list_file:
