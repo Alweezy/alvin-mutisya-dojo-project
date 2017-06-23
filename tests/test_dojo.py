@@ -56,8 +56,8 @@ class AddPersonTestCases(unittest.TestCase):
         self.staff1 = self.dojo.add_person('Naima', 'Hussein', 'Staff')
         self.office1 = self.dojo.create_room('Argon', 'office')
         self.room1 = self.dojo.create_room('west', 'livingspace')
-        self.fellow_name = self.dojo.fellows[0].fname
-        self.staff_name = self.dojo.staff[0].fname
+        self.fellow_name = self.dojo.fellows[0].first_name
+        self.staff_name = self.dojo.staff[0].first_name
         self.room_capacity = self.dojo.all_rooms[0].room_capacity
 
     def test_fellow_added_successfully(self):
