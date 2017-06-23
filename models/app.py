@@ -132,9 +132,21 @@ class Interactive (cmd.Cmd):
         file_name = args["<file_name>"]
         dojo.load_people(file_name)
 
+    @docopt_cmd
+    def do_save_state(self, args):
+        """Usage: save_state [--db=sqlite_database]"""
+        db_name = args["--db"]
+        dojo.save_state(db_name)
+
+    @docopt_cmd
+    def do_load_state(self, args):
+        """Usage: load_state <sqlite_database>"""
+        db_name = args["<sqlite_database>"]
+        dojo.load_state(db_name)
+
     def do_quit(self, arg):
         """Quits out of the interactive mode"""
-        print(colored(('-' * 28) + 'BYE' + ('-' * 28), 'white'))
+        print(colored(('-' * 28) + 'BYE' + ('-' * 28), 'yellow'))
         exit()
 
 opt = docopt(__doc__, sys.argv[1:])
