@@ -1,10 +1,11 @@
+import os
 import sys
 import random
 from people import Staff, Fellow
 from rooms import Office, LivingSpace
 from os import path
-import types
 from termcolor import colored
+from database.schema import People, DataBaseConnection, Rooms, Unallocated
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
 white_line = colored('-' * 60, 'white')
@@ -20,7 +21,7 @@ class Dojo(object):
         self.office_unallocated = []
         self.living_unallocated = []
         self.allocated = []
-        self.all_people = []
+        self.all_people = self.fellows + self.staff
 
     def get_room(self, rooms):
         """A function to generate a list of random rooms with space.
@@ -78,7 +79,7 @@ class Dojo(object):
         self. wants_accommodation = wants_accommodation
         self.person_name = self.first_name + self.last_name
         if occupation == 'Fellow':
-            if self.person_name not in [person.fname + person.lname for person in self.fellows]:
+            if self.person_name not in [person.first_name + person.last_name for person in self.fellows]:
                 person = Fellow(first_name, last_name, occupation, wants_accommodation)
                 self.fellows.append(person)
                 print(white_line)
@@ -95,7 +96,7 @@ class Dojo(object):
                                 room.occupants.append(person)
                                 print(white_line)
                                 print(colored('A ' + person.occupation + ' '
-                                      + person.fname + ' has been added to '
+                                      + person.first_name + ' has been added to '
                                       + work_room, 'cyan'))
                     else:
                         # Add person to a list of unallocated if they got no office space.
@@ -112,7 +113,7 @@ class Dojo(object):
                             if room.room_name == work_room:
                                 room.occupants.append(person)
                                 print(white_line)
-                                print(colored('A ' + person.occupation + ' ' + person.fname +
+                                print(colored('A ' + person.occupation + ' ' + person.first_name +
                                       ' has been added to ' + work_room, 'cyan'))
                     else:
                         # Add person to a list of unallocated if they got no office space.
@@ -124,7 +125,7 @@ class Dojo(object):
                             if room.room_name == living_room:
                                 room.occupants.append(person)
                                 print(white_line)
-                                print(colored('A ' + person.occupation + ' ' + person.fname +
+                                print(colored('A ' + person.occupation + ' ' + person.first_name +
                                       ' has been added to ' + living_room, 'cyan'))
                     else:
                         # Add person to a list of unallocated if they got no office space.
@@ -135,7 +136,7 @@ class Dojo(object):
                 print(white_line)
                 print(colored('A fellow with that name already exists', 'red'))
         if occupation == 'Staff':
-            if self.person_name not in [person.fname + person.lname for person in self.staff]:
+            if self.person_name not in [person.first_name + person.last_name for person in self.staff]:
                 person = Staff(first_name, last_name, occupation)
                 print(white_line)
                 print(colored(first_name + ' ' + last_name + ' has been added successfully!', 'cyan'))
@@ -146,7 +147,7 @@ class Dojo(object):
                         if room.room_name == work_room:
                             room.occupants.append(person)
                             print(white_line)
-                            print(colored('A ' + person.occupation + ' ' + person.fname +
+                            print(colored('A ' + person.occupation + ' ' + person.first_name +
                                           ' has been added to ' + work_room, 'cyan'))
                 else:
                     # Add person to a list of unallocated if they got no office space.
@@ -175,7 +176,7 @@ class Dojo(object):
                 # check if room has occupants
                 if room.occupants:
                     for person in room.occupants:
-                        print(person.id + '           ' + person.fname + ' ' + person.lname)
+                        print(person.id + '           ' + person.first_name + ' ' + person.last_name)
                 else:
                     print(colored('Room has currently no occupants!', 'red'))
 
@@ -193,9 +194,9 @@ class Dojo(object):
                 print('Employee id' + '    ' + 'Employee Name')
                 print(white_line)
                 for person in room.occupants:
-                    person_name = person.fname + ' ' + person.lname
+                    person_name = person.first_name + ' ' + person.last_name
                     write_to_file += person_name + '\n'
-                    print(person.id + '           ' + person.fname + ' ' + person.lname)
+                    print(person.id + '           ' + person.first_name + ' ' + person.last_name)
 
                 # check if user has opted to print list
                 if filename:
@@ -218,9 +219,11 @@ class Dojo(object):
             print('Employee id' + '    ' + 'Employee Name')
             print(white_line)
             for person in self.office_unallocated:
-                person_name = person.fname + ' ' + person.lname
-                write_to_file += person_name + '\n'
-                print(person.id + '           ' + person.fname + ' ' + person.lname)
+                if person:
+                    person_name = person.first_name + ' ' + person.last_name
+                    write_to_file += person_name + '\n'
+                    print(str(person.id) + '           ' + person.first_name + ' ' +
+                          person.last_name)
             # check if user has opted to print list
             if filename:
                 file_name = filename + ".txt"
@@ -234,9 +237,9 @@ class Dojo(object):
             print('Employee id' + '    ' + 'Employee Name')
             print(white_line)
             for person in self.living_unallocated:
-                person_name = person.fname + ' ' + person.lname
+                person_name = person.first_name + ' ' + person.last_name
                 write_to_file += person_name + '\n'
-                print(person.id + '           ' + person.fname + ' ' + person.lname)
+                print(str(person.id) + '           ' + person.first_name + ' ' + person.last_name)
             # check if user has opted to print list
             if filename:
                 file_name = filename + ".txt"
@@ -301,7 +304,7 @@ class Dojo(object):
         :param room_name: A string representing the name of the room to which
         reallocation is intended.
         """
-        self.all_people = self.fellows + self.staff
+        self.all_people = self.staff + self.fellows
         if room_name in [room.room_name for room in self.all_rooms]:
             for person in self.all_people:
                 if person_id == person.id:
@@ -310,17 +313,19 @@ class Dojo(object):
                     if person not in unallocated:
                         for room in self.all_rooms:
                             if room_name == room.room_name:
-                                if room.room_type == intended_room_type:
+                                if room.room_type == intended_room_type and len(room.occupants) < room.room_capacity:
                                     if self.check_current_room_object(current_room):
                                         if room_name != current_room.room_name:
                                             person = self.unallocate_person(person_id, intended_room_type)
                                             room.occupants.append(person)
                                             print(white_line)
-                                            return colored('reallocation successful!, new room: ' + room_name, 'cyan')
+                                            return colored('reallocation successful!, new room: ' +
+                                                           room_name, 'cyan')
                                         else:
                                             return colored('Person already occupies that room!', 'red')
                                     else:
                                         return colored('Reallocation for similar room_types only!', 'red')
+                                return colored('That room is fully occupied', 'red')
                     else:
                         return colored('Only persons with rooms can be reallocated!', 'red')
             return colored('There is no person in the system with such an id!', 'red')
@@ -343,8 +348,73 @@ class Dojo(object):
                         occupation = attributes[2].title()
                         if len(attributes) == 4:
                             wants_accommodation = attributes[3]
-                            self.add_person(first_name, last_name, occupation, wants_accommodation)
+                            self.add_person(first_name, last_name, occupation,
+                                            wants_accommodation)
                         else:
                             self.add_person(first_name, last_name, occupation)
         except IOError:
             print(colored('There exists no file with such a name!'))
+
+    def save_state(self, db_name=None):
+        """Persists all the data stored in the app to a SQLite database.
+        :param db_name: The name of the database to create.
+        """
+        if path.exists('default_amity_db.db'):
+            os.remove('default_amity_db.db')
+        if path.exists(str(db_name) + '.db'):
+            os.remove(str(db_name) + '.db')
+        if db_name is None:
+            connection = DataBaseConnection()
+        else:
+            connection = DataBaseConnection(db_name)
+        session = connection.Session()
+        self.all_people = self.staff + self.fellows
+        if self.all_people:
+            print(colored('saving people to database.....', 'yellow'))
+            for person in self.all_people:
+                employee = People(person.id, person.first_name, person.last_name,
+                                  person.occupation, person.wants_accommodation)
+                session.add(employee)
+                session.commit()
+        else:
+            print(colored('There are currently no people at the dojo!',
+                          'red'))
+        if self.all_rooms:
+            print(colored('saving rooms to database....', 'yellow'))
+            for room in self.all_rooms:
+                room_occupants = ",".join([str(person.id) for person
+                                           in room.occupants])
+                space = Rooms(room.room_name, room.room_type,
+                              room.room_capacity, room_occupants)
+                session.add(space)
+                session.commit()
+        else:
+            print(colored('There currently no rooms in the dojo!', 'red'))
+        unallocated = self.office_unallocated + self.living_unallocated
+        if unallocated:
+            print(colored('saving unallocated to database....', 'yellow'))
+            for person in self.office_unallocated:
+                room_unallocated = 'Office'
+                employee = Unallocated(person.id, person.first_name,
+                                       person.last_name, person.occupation,
+                                       room_unallocated)
+                session.add(employee)
+                session.commit()
+            for person in self.living_unallocated:
+                room_unallocated = 'Living space'
+                employee = Unallocated(person.id, person.first_name,
+                                       person.last_name, person.occupation,
+                                       room_unallocated)
+                session.add(employee)
+                session.commit()
+        else:
+            print(colored('Currently there are no pending allocations!',
+                          'cyan'))
+        print('Data persisted to {} database successfully!'.
+              format(connection.db_name))
+
+
+
+
+
+
