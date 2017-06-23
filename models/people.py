@@ -19,7 +19,7 @@ class Person(object):
 
     def generate_person_id(self):
         """Generates a unique id for any person (Staff|Fellow) added to the system
-        :return: fellow_id|person_id
+        :return: fellow_id|staff_id: The id of the person to added.
         """
         if self.occupation is 'Fellow':
             Person.person_id += 1
