@@ -307,6 +307,7 @@ class Dojo(object):
         self.all_people = self.staff + self.fellows
         if room_name in [room.room_name for room in self.all_rooms]:
             for person in self.all_people:
+                print(person.id)
                 if person_id == person.id:
                     intended_room_type, unallocated = self.get_room_type(room_name)
                     current_room = self.get_current_room(person_id, intended_room_type)
