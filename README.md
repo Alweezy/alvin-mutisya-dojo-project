@@ -34,7 +34,9 @@ source venv/bin/activate
 > git clone https://github.com/Alweezy/alvin-mutisya-dojo-project.git
 
 - Once in the app directory, install Requirements
-> pip install -r requirements.tx
+```
+pip install -r requirements.tx
+```
 
 
 ---
@@ -42,8 +44,6 @@ source venv/bin/activate
 ## Usage
 
 ```python
-
-This is the dojo
 
 Usage:
     dojo create_room (Living|Office) <room_name>...
@@ -61,18 +61,6 @@ Options:
     -h,--help  :  Show this screen.
     -i,--interactive  :  Interactive Mode
     -v,--version  :  Version of the system
-
-Usage:
-    dojo create_room (Living|Office) <room_name>...
-    dojo add_person <first_name> <last_name> (Fellow|Staff) [<wants_space>]
-    dojo print_room <room_name>
-    dojo print_allocations [--o=filename.txt]
-    dojo print_unallocated [--o=filename.txt]
-    dojo reallocate_person <employee_id> <new_room_name>
-    dojo load_people <filename>
-    dojo save_state [--db=sqlite_database]
-    dojo load_state <sqlite_database>
-    dojo (-i | --interactive)
 ```
 ---
 
