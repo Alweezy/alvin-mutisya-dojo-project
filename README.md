@@ -35,7 +35,7 @@ source venv/bin/activate
 
 - Once in the app directory, install Requirements
 ```
-pip install -r requirements.tx
+pip install -r requirements.txt
 ```
 
 
