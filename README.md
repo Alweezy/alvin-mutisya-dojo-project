@@ -82,8 +82,7 @@ The default value if it is not provided is N.
 ```print_unallocated [-o=filename]``` prints a list of unallocated people to the screen.
 > Specifying the -o option here outputs the information to the txt file provided.
 
-```reallocate_person <person_identifier> <new_room_name> - reallocates the person with
-person_identifier to new_room_name.
+```reallocate_person <person_identifier> <new_room_name> - reallocates the person with person_identifier to new_room_name.
 
 ```load_people``` adds people to rooms from a txt file.
 
