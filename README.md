@@ -65,9 +65,32 @@ Options:
 ---
 ### Explanation:
 ___
-The ```dojo create_room (Living|Office) <room_name>...``` Creates rooms in the Dojo
+The ```dojo create_room (Living|Office) <room_name>...```  command creates rooms in the Dojo
 > Using this command, the user can create as many rooms as possible by specifying multiple room names
   after the create_room command.
+
+```add_person <person_name> <FELLOW|STAFF> [wants_accommodation]``` adds a person to the system and allocates the person
+ a random room
+>wants_accommodation here is an optional argument which can be either Y or N.
+The default value if it is not provided is N.
+
+```print_room <room_name>``` prints  the names of all the people in room_name on the screen.
+
+```print_allocations [-o=filename]```  prints a list of allocations onto the screen.
+> Specifying the optional -o option here outputs the registered allocations to a txt file.
+
+```print_unallocated [-o=filename]``` prints a list of unallocated people to the screen.
+> Specifying the -o option here outputs the information to the txt file provided.
+
+```reallocate_person <person_identifier> <new_room_name> - reallocates the person with
+person_identifier to new_room_name.
+
+```load_people`` adds people to rooms from a txt file.
+
+```save_state [--db=sqlite_database]``` persists all the data stored in the app to a SQLite database.
+> Specifying the --db parameter explicitly stores the data in the sqlite_database specified.
+
+```load_state <sqlite_database>``` loads data from a database into the application.
 
 
 ### License
