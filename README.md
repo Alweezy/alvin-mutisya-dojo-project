@@ -63,6 +63,12 @@ Options:
     -v,--version  :  Version of the system
 ```
 ---
+### Explanation:
+___
+The ```dojo create_room (Living|Office) <room_name>...``` Creates rooms in the Dojo
+> Using this command, the user can create as many rooms as possible by specifying multiple room names
+  after the create_room command.
+
 
 ### License
 
