@@ -85,7 +85,7 @@ The default value if it is not provided is N.
 ```reallocate_person <person_identifier> <new_room_name> - reallocates the person with
 person_identifier to new_room_name.
 
-```load_people`` adds people to rooms from a txt file.
+```load_people``` adds people to rooms from a txt file.
 
 ```save_state [--db=sqlite_database]``` persists all the data stored in the app to a SQLite database.
 > Specifying the --db parameter explicitly stores the data in the sqlite_database specified.
