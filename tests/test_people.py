@@ -2,18 +2,6 @@ from models.people import Person, Fellow, Staff
 from unittest import TestCase
 
 
-class PersonTestCases(TestCase):
-    """Tests the functionality of the person parent class
-    """
-    def setUp(self):
-        """Passes an instance of class Person to all the methods in this class
-        """
-        self.person = Person('Oluwafemi', 'Sule', 'Fellow')
-
-    def test_full_name_is_correct(self):
-        self.assertEqual(self.person.first_name + ' ' + self.person.last_name, 'Oluwafemi Sule')
-
-
 class FellowTestCases(TestCase):
     def setUp(self):
         self.fellow = Fellow('Nadia', 'Alexis', 'Fellow')
