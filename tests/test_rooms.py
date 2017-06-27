@@ -2,13 +2,6 @@ from models.rooms import Room, Office,  LivingSpace
 from unittest import TestCase
 
 
-class RoomTestCase(TestCase):
-
-    def test_room_instance(self):
-        self.valhalla = Room('Valhalla', 'office', 6)
-        self.assertEqual(self.valhalla.room_name, 'Valhalla')
-
-
 class OfficeSpaceTestCase(TestCase):
 
     def test_class_inherits_from_room(self):
