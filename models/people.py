@@ -1,8 +1,12 @@
-class Person(object):
+from abc import ABCMeta, abstractmethod
+
+
+class Person:
+    __metaclass__ = ABCMeta
     """Models the kind of people available at Andela,
     It forms the base class from which classes Fellow and Staff inherit"""
     person_id = 0
-    
+
     def __init__(self, first_name, last_name, occupation):
         """Initializes the base class Person
         :param first_name: A string denoting person's first name
@@ -13,6 +17,10 @@ class Person(object):
         self.last_name = last_name
         self.occupation = occupation
         self.person_name = self.first_name + self.first_name
+
+    @abstractmethod
+    def __repr__(self):
+        return self.person_name
 
     def generate_person_id(self):
         """Generates a unique id for any person (Staff|Fellow) added to the system
@@ -36,9 +44,15 @@ class Fellow(Person):
         self.wants_accommodation = wants_accommodation
         self.id = id or self.generate_person_id()
 
+    def __repr__(self):
+        return self.person_name
+
 
 class Staff(Person):
     def __init__(self, first_name, last_name, occupation, wants_accommodation=None, id=None, *args, **kwargs):
         super(Staff, self).__init__(first_name, last_name, occupation='Staff')
         self.id = id or self.generate_person_id()
         self.wants_accommodation = wants_accommodation
+
+    def __repr__(self):
+        return self.person_name
