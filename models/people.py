@@ -1,11 +1,8 @@
 class Person(object):
     """Models the kind of people available at Andela,
     It forms the base class from which classes Fellow and Staff inherit"""
-
     person_id = 0
-    staff_id = ''
-    fellow_id = ''
-
+    
     def __init__(self, first_name, last_name, occupation):
         """Initializes the base class Person
         :param first_name: A string denoting person's first name
