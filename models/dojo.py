@@ -1,10 +1,10 @@
 import os
 import sys
 import random
-from people import Staff, Fellow
-from rooms import Office, LivingSpace
 from os import path
 from termcolor import colored
+from people import Staff, Fellow
+from rooms import Office, LivingSpace
 from database.schema import People, DataBaseConnection, Rooms, Unallocated
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
@@ -29,7 +29,8 @@ class Dojo(object):
         :return: room_name
         """
         # a room is only available if it's capacity is not exceeded
-        available_rooms = [room for room in rooms if len(room.occupants) < room.room_capacity]
+        available_rooms = [room for room in rooms if len(room.occupants)
+                           < room.room_capacity]
         # return False if all rooms are full
         if len(available_rooms) < 1:
             return False
@@ -40,7 +41,8 @@ class Dojo(object):
     def create_room(self, room_name, room_type):
         """Creates a room in the system, either office or living space.
         :param room_name: A string representing a room's name.
-        :param room_type: A string representing  a room's type (Office or Living space)
+        :param room_type: A string representing  a room's type
+        (Office or Living space)
         """
         if room_type is 'office':
             if room_name not in [room.room_name for room in self.offices]:
@@ -48,10 +50,12 @@ class Dojo(object):
                 self.offices.append(room)
                 self.all_rooms.append(room)
                 print(white_line)
-                print(colored('An office called' + ' ' + room_name + ' ' + 'has been successfully created!', 'cyan'))
+                print(colored('An office called' + ' ' + room_name + ' ' +
+                              'has been successfully created!', 'cyan'))
             else:
                 print(white_line)
-                print(colored('An office with that name already exists!', 'red'))
+                print(colored(
+                    'An office with that name already exists!', 'red'))
         if room_type is 'livingspace':
             if room_name not in [room.room_name for room in self.livingrooms]:
                 room = LivingSpace(room_name=room_name, room_type=room_type)
@@ -59,18 +63,23 @@ class Dojo(object):
                 self.livingrooms.append(room)
                 self.all_rooms.append(room)
                 print(white_line)
-                print(colored('An room called' + ' ' + room_name + ' ' + 'has been successfully created!', 'cyan'))
+                print(colored('An room called' + ' ' + room_name + ' ' +
+                              'has been successfully created!', 'cyan'))
             else:
                 print(white_line)
-                print(colored('A living room with that name already exists!', 'red'))
+                print(colored(
+                    'A living room with that name already exists!', 'red'))
 
-    def add_person(self, first_name, last_name, occupation, wants_accommodation=None):
-        """Adds person to the system and allocates them office space and room space if they
-        are a fellow and requested for accommodation.
+    def add_person(self, first_name, last_name,
+                   occupation, wants_accommodation=None):
+        """Adds person to the system and allocates them office space and
+        room space if they are a fellow and requested for accommodation.
         :param first_name: A string representing the person's first name.
         :param last_name: A string representing the person's second name.
-        :param occupation: A string representing the persons's   type (Fellow/Staff)
-        :param wants_accommodation: An optional string representing a fellow's accommodation
+        :param occupation: A string representing
+        the persons's type (Fellow/Staff)
+        :param wants_accommodation: An optional string representing a
+        fellow's accommodation
         """
 
         self.first_name = first_name
@@ -79,15 +88,18 @@ class Dojo(object):
         self. wants_accommodation = wants_accommodation
         self.person_name = self.first_name + self.last_name
         if occupation == 'Fellow':
-            if self.person_name not in [person.first_name + person.last_name for person in self.fellows]:
-                person = Fellow(first_name, last_name, occupation, wants_accommodation)
+            if self.person_name not in [person.first_name + person.last_name
+                                        for person in self.fellows]:
+                person = Fellow(
+                    first_name, last_name, occupation, wants_accommodation)
                 self.fellows.append(person)
                 print(white_line)
-                print(colored(first_name + ' ' + last_name + ' has been added successfully!', 'cyan'))
-                # check if fellow wants accommodation, it is set to 'N' by default
+                print(colored(first_name + ' ' + last_name +
+                              ' has been added successfully!', 'cyan'))
+                # check if fellow wants accommodation,  set to 'N' by default
                 accommodation = person.wants_accommodation
                 if accommodation is None or accommodation != 'Y':
-                    # if a fellow does not want  accommodation then they get only office space
+                    # if a fellow wants no accommodation grant just office
                     work_room = self.get_room(self.offices)
                     # if there is no available office space
                     if work_room:
@@ -96,15 +108,17 @@ class Dojo(object):
                                 room.occupants.append(person)
                                 print(white_line)
                                 print(colored('A ' + person.occupation + ' '
-                                      + person.first_name + ' has been added to '
+                                      + person.first_name +
+                                              ' has been added to '
                                       + work_room, 'cyan'))
                     else:
-                        # Add person to a list of unallocated if they got no office space.
+                        # Add person unallocated if no office space.
                         self.office_unallocated.append(person)
                         print(white_line)
-                        print(colored('Office space unavailable, added to office waiting list', 'red'))
+                        print(colored('Office space unavailable, '
+                                      'added to office waiting list', 'red'))
                 else:
-                    # if a fellow does not want  accommodation then they get only office space
+                    # Add person unallocated if no office space.
                     work_room = self.get_room(self.offices)
                     living_room = self.get_room(self.livingrooms)
                     # if there is no available office space
@@ -113,33 +127,43 @@ class Dojo(object):
                             if room.room_name == work_room:
                                 room.occupants.append(person)
                                 print(white_line)
-                                print(colored('A ' + person.occupation + ' ' + person.first_name +
-                                      ' has been added to ' + work_room, 'cyan'))
+                                print(colored('A ' + person.occupation +
+                                              ' ' + person.first_name +
+                                      ' has been added to '
+                                              + work_room, 'cyan'))
                     else:
-                        # Add person to a list of unallocated if they got no office space.
+                        # Add per
                         self.office_unallocated.append(person)
                         print(white_line)
-                        print(colored('Office space unavailable, added to office waiting list', 'red'))
+                        print(colored('Office space unavailable, '
+                                      'added to office waiting list', 'red'))
                     if living_room:
                         for room in self.livingrooms:
                             if room.room_name == living_room:
                                 room.occupants.append(person)
                                 print(white_line)
-                                print(colored('A ' + person.occupation + ' ' + person.first_name +
-                                      ' has been added to ' + living_room, 'cyan'))
+                                print(colored('A ' + person.occupation +
+                                              ' ' + person.first_name +
+                                      ' has been added to '
+                                              + living_room, 'cyan'))
                     else:
-                        # Add person to a list of unallocated if they got no office space.
+                        # Add person unallocated if no office space.
                         self.living_unallocated.append(person)
                         print(white_line)
-                        print(colored('Living space unavailable, added to accommodation waiting list', 'red'))
+                        print(colored('Living space unavailable, '
+                                      'added to accommodation waiting list',
+                                      'red'))
             else:
                 print(white_line)
-                print(colored('A fellow with that name already exists', 'red'))
+                print(colored('A fellow with that name already exists',
+                              'red'))
         if occupation == 'Staff':
-            if self.person_name not in [person.first_name + person.last_name for person in self.staff]:
+            if self.person_name not in [person.first_name + person.last_name
+                                        for person in self.staff]:
                 person = Staff(first_name, last_name, occupation)
                 print(white_line)
-                print(colored(first_name + ' ' + last_name + ' has been added successfully!', 'cyan'))
+                print(colored(first_name + ' ' + last_name +
+                              ' has been added successfully!', 'cyan'))
                 self.staff.append(person)
                 work_room = self.get_room(self.offices)
                 if work_room:
@@ -147,26 +171,31 @@ class Dojo(object):
                         if room.room_name == work_room:
                             room.occupants.append(person)
                             print(white_line)
-                            print(colored('A ' + person.occupation + ' ' + person.first_name +
-                                          ' has been added to ' + work_room, 'cyan'))
+                            print(colored('A ' + person.occupation + ' ' +
+                                          person.first_name +
+                                          ' has been added to ' +
+                                          work_room, 'cyan'))
                 else:
-                    # Add person to a list of unallocated if they got no office space.
+                    # Add person to a list of unallocated on missing office.
                     self.office_unallocated.append(person)
                     print(white_line)
-                    print(colored('Office space unavailable, added to office waiting list', 'red'))
+                    print(colored('Office space unavailable, '
+                                  'added to office waiting list', 'red'))
             else:
                 print(white_line)
-                print(colored('A member of staff with that name already exists!', 'red'))
+                print(colored('A member of staff with that '
+                              'name already exists!', 'red'))
 
     def print_room(self, room_name):
         """Gets a room name as an argument and returns a status of the room's
         existence and occupants if room exists
         :param room_name: A string representing  the name of the room.
         """
-        # check if the requested room is available in the list of created rooms.
+        # check if the requested room is available in created rooms.
         if room_name not in [room.room_name for room in self.all_rooms]:
             print(white_line)
-            print(colored('The room you entered is not in the system!', 'red'))
+            print(colored('The room you entered is not in the system!',
+                          'red'))
         for room in self.all_rooms:
             if room.room_name == room_name:
                 print(room.room_name + '(' + room.room_type.title() + ')')
@@ -176,7 +205,8 @@ class Dojo(object):
                 # check if room has occupants
                 if room.occupants:
                     for person in room.occupants:
-                        print(person.id + '           ' + person.first_name + ' ' + person.last_name)
+                        print(person.id + '           ' +
+                              person.first_name + ' ' + person.last_name)
                 else:
                     print(colored('Room has currently no occupants!', 'red'))
 
@@ -188,7 +218,8 @@ class Dojo(object):
         write_to_file = ''
         for room in self.all_rooms:
             if room.occupants:
-                print(colored(room.room_name + '(' + room.room_type.title() + ')', 'cyan'))
+                print(colored(room.room_name +
+                              '(' + room.room_type.title() + ')', 'cyan'))
                 write_to_file += room.room_name + '\n'
                 print(white_line)
                 print('Employee id' + '    ' + 'Employee Name')
@@ -196,7 +227,8 @@ class Dojo(object):
                 for person in room.occupants:
                     person_name = person.first_name + ' ' + person.last_name
                     write_to_file += person_name + '\n'
-                    print(person.id + '           ' + person.first_name + ' ' + person.last_name)
+                    print(person.id + '           ' + person.first_name +
+                          ' ' + person.last_name)
 
                 # check if user has opted to print list
                 if filename:
@@ -206,7 +238,8 @@ class Dojo(object):
                     file_output.close()
                     return
             else:
-                print(colored(room.room_name + '(' + room.room_type.title() + ')', 'cyan'))
+                print(colored(room.room_name + '('
+                              + room.room_type.title() + ')', 'cyan'))
                 print(colored('This room has no occupants', 'red'))
 
     def print_unallocated(self, filename):
@@ -222,7 +255,8 @@ class Dojo(object):
                 if person:
                     person_name = person.first_name + ' ' + person.last_name
                     write_to_file += person_name + '\n'
-                    print(str(person.id) + '           ' + person.first_name + ' ' +
+                    print(str(person.id) + '           ' +
+                          person.first_name + ' ' +
                           person.last_name)
             # check if user has opted to print list
             if filename:
@@ -239,7 +273,8 @@ class Dojo(object):
             for person in self.living_unallocated:
                 person_name = person.first_name + ' ' + person.last_name
                 write_to_file += person_name + '\n'
-                print(str(person.id) + '           ' + person.first_name + ' ' + person.last_name)
+                print(str(person.id) + '           ' + person.first_name +
+                      ' ' + person.last_name)
             # check if user has opted to print list
             if filename:
                 file_name = filename + ".txt"
@@ -287,10 +322,12 @@ class Dojo(object):
 
     @staticmethod
     def check_current_room_object(current_room):
-        """Catches the error in current room to prevent passing of a string to function call
-        in reallocate_person
-        :param current_room: A string representing the room currently occupied by a person
-        :return: boolean: This depends on whether current room is string or object.
+        """Catches the error in current room to prevent passing of a
+        string to function call in reallocate_person
+        :param current_room: A string representing the room
+        currently occupied by a person
+        :return: boolean: This depends on whether current room
+        is string or object.
         """
         try:
             if current_room.__dict__:
@@ -307,36 +344,49 @@ class Dojo(object):
         self.all_people = self.staff + self.fellows
         if room_name in [room.room_name for room in self.all_rooms]:
             for person in self.all_people:
-                print(person.id)
                 if person_id == person.id:
-                    intended_room_type, unallocated = self.get_room_type(room_name)
-                    current_room = self.get_current_room(person_id, intended_room_type)
+                    intended_room_type, unallocated =\
+                        self.get_room_type(room_name)
+                    current_room = self.get_current_room(person_id,
+                                                         intended_room_type)
                     if person not in unallocated:
                         for room in self.all_rooms:
                             if room_name == room.room_name:
-                                if room.room_type == intended_room_type and len(room.occupants) < room.room_capacity:
+                                if room.room_type ==\
+                                        intended_room_type \
+                                        and len(room.occupants) \
+                                        < room.room_capacity:
                                     if self.check_current_room_object(current_room):
                                         if room_name != current_room.room_name:
-                                            person = self.unallocate_person(person_id, intended_room_type)
+                                            person = self.unallocate_person(
+                                                person_id, intended_room_type)
                                             room.occupants.append(person)
                                             print(white_line)
-                                            return colored('reallocation successful!, new room: ' +
-                                                           room_name, 'cyan')
+                                            return colored(
+                                                'reallocation successful!,'
+                                                'new room: ' +
+                                                room_name, 'cyan')
                                         else:
-                                            return colored('Person already occupies that room!', 'red')
+                                            return colored(
+                                                'Person already occupies that'
+                                                ' room!', 'red')
                                     else:
-                                        return colored('Reallocation for similar room_types only!', 'red')
+                                        return colored(
+                                            'Reallocation for similar '
+                                            'room_types only!', 'red')
                                 return colored('That room is fully occupied', 'red')
                     else:
-                        return colored('Only persons with rooms can be reallocated!', 'red')
-            return colored('There is no person in the system with such an id!', 'red')
+                        return colored('Only persons with rooms can be '
+                                       'reallocated!', 'red')
+            return colored(
+                'There is no person in the system with such an id!', 'red')
         else:
             return colored('The room specified does not exist!', 'red')
 
     def load_people(self, file_name):
         """Loads people from a text file
-        :param file_name: A string representing the name of the file from which
-        the loading should take place
+        :param file_name: A string representing the name of the file
+        from which the loading should take place
         """
         try:
             with open(file_name, 'r') as list_file:
@@ -373,8 +423,9 @@ class Dojo(object):
         if self.all_people:
             print(colored('saving people to database.....', 'yellow'))
             for person in self.all_people:
-                employee = People(person.id, person.first_name, person.last_name,
-                                  person.occupation, person.wants_accommodation)
+                employee = People(
+                    person.id, person.first_name, person.last_name,
+                    person.occupation, person.wants_accommodation)
                 session.add(employee)
                 session.commit()
         else:
@@ -425,7 +476,8 @@ class Dojo(object):
         saved_unallocated = session.query(Unallocated).all()
         if saved_people:
             for person in saved_people:
-                data = {'id': person.person_id, 'first_name': person.first_name,
+                data = {'id': person.person_id,
+                        'first_name': person.first_name,
                         'last_name': person.last_name,
                         'occupation': person.occupation,
                         'wants_accommodation': person.wants_accommodation}
@@ -441,17 +493,21 @@ class Dojo(object):
             self.all_people = self.staff + self.fellows
             for room in saved_rooms:
                 if room.room_type == 'office':
-                    if room.room_name not in [room.room_name for room in self.offices]:
+                    if room.room_name \
+                            not in [room.room_name for room in self.offices]:
                         space = Office(room.room_name, room.room_type)
                         occupants = [person_id for person_id in
-                                     room.room_occupants.split(",") if person_id]
+                                     room.room_occupants.split(",")
+                                     if person_id]
                         self.all_rooms.append(space)
                         if occupants:
                             for occupant in occupants:
-                                person = self.get_person_object(occupant, self.all_people)
+                                person = self.get_person_object(
+                                    occupant, self.all_people)
                                 space.occupants.append(person)
                 if room.room_type == 'livingspace':
-                    if room.room_name not in [room.room_name for room in self.offices]:
+                    if room.room_name \
+                            not in [room.room_name for room in self.offices]:
                         space = LivingSpace(room.room_name, room.room_type)
                         occupants = [person_id for person_id in
                                      room.room_occupants.split(",") if person_id]
@@ -468,21 +524,24 @@ class Dojo(object):
                 if person.room_unallocated == 'Office' and\
                         person not in self.office_unallocated:
                         self.all_people = self.staff + self.fellows
-                        person_object = self.get_person_object(person.person_id, self.all_people)
+                        person_object = self.get_person_object(
+                            person.person_id, self.all_people)
                         self.office_unallocated.append(person_object)
                 if person.room_unallocated == 'Living space' and\
                         person not in self.living_unallocated:
-                        person_object = self.get_person_object(person.person_id, self.fellows)
+                        person_object = self.get_person_object(
+                            person.person_id, self.fellows)
                         self.living_unallocated.append(person_object)
             print(colored('Unallocated people successfully loaded.', 'cyan'))
         else:
-            print(colored('No saved unallocated people in the database.', 'red'))
+            print(colored(
+                'No saved unallocated people in the database.', 'red'))
 
     @staticmethod
     def get_person_object(person_id, person_location):
-        """Gets the person object for the person to be loaded into the system from database
+        """Gets the person object for the person to be loaded from database
         :param person_id: the id of the person to be loaded
-        :param person_location: The list of objects where the person is currently found.
+        :param person_location: The list of people where the person exists.
         :return: person: The person to be loaded.
         """
         for person in person_location:
