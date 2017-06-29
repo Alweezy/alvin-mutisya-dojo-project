@@ -495,73 +495,82 @@ class Dojo(object):
         """ Loads data from a database into the application.
         :param db_name: The name of the database from which to load the data.
         """
-        connection = DataBaseConnection(db_name)
-        session = connection.Session()
-        saved_people = session.query(People).all()
-        saved_rooms = session.query(Rooms).all()
-        saved_unallocated = session.query(Unallocated).all()
-        if saved_people:
-            for person in saved_people:
-                data = {'id': person.person_id,
-                        'first_name': person.first_name,
-                        'last_name': person.last_name,
-                        'occupation': person.occupation,
-                        'wants_accommodation': person.wants_accommodation}
-                if person.occupation == 'Staff':
-                    person = Staff(**data)
-                    self.staff.append(person)
-                if person.occupation == 'Fellow':
-                    person = Fellow(**data)
-                    self.fellows.append(person)
+
+        # check if file is in root directory.
+        # path_to_db = os.path.join('../', db_name + '.db')
+
+        base_path = os.path.dirname(__file__)
+        file_path = os.path.abspath(os.path.join(base_path, '..', db_name + '.db'))
+        if not os.path.isfile(file_path):
+            print(colored("Database does not exist.", 'red'))
         else:
-            print(colored('No saved people in the database', 'red'))
-        if saved_rooms:
-            self.all_people = self.staff + self.fellows
-            for room in saved_rooms:
-                if room.room_type == 'office':
-                    if room.room_name \
-                            not in [room.room_name for room in self.offices]:
-                        space = Office(room.room_name, room.room_type)
-                        occupants = [person_id for person_id in
-                                     room.room_occupants.split(",")
-                                     if person_id]
-                        self.all_rooms.append(space)
-                        if occupants:
-                            for occupant in occupants:
-                                person = self.get_person_object(
-                                    occupant, self.all_people)
-                                space.occupants.append(person)
-                if room.room_type == 'livingspace':
-                    if room.room_name \
-                            not in [room.room_name for room in self.offices]:
-                        space = LivingSpace(room.room_name, room.room_type)
-                        occupants = [person_id for person_id in
-                                     room.room_occupants.split(",") if person_id]
-                        self.all_rooms.append(space)
-                        if occupants:
-                            for occupant in occupants:
-                                person = self.get_person_object(occupant, self.all_people)
-                                space.occupants.append(person)
-            print(colored('Rooms successfully loaded.', 'cyan'))
-        else:
-            print(colored('No saved rooms in the database.', 'red'))
-        if saved_unallocated:
-            for person in saved_unallocated:
-                if person.room_unallocated == 'Office' and\
-                        person not in self.office_unallocated:
-                        self.all_people = self.staff + self.fellows
-                        person_object = self.get_person_object(
-                            person.person_id, self.all_people)
-                        self.office_unallocated.append(person_object)
-                if person.room_unallocated == 'Living space' and\
-                        person not in self.living_unallocated:
-                        person_object = self.get_person_object(
-                            person.person_id, self.fellows)
-                        self.living_unallocated.append(person_object)
-            print(colored('Unallocated people successfully loaded.', 'cyan'))
-        else:
-            print(colored(
-                'No saved unallocated people in the database.', 'red'))
+            connection = DataBaseConnection(db_name)
+            session = connection.Session()
+            saved_people = session.query(People).all()
+            saved_rooms = session.query(Rooms).all()
+            saved_unallocated = session.query(Unallocated).all()
+            if saved_people:
+                for person in saved_people:
+                    data = {'id': person.person_id,
+                            'first_name': person.first_name,
+                            'last_name': person.last_name,
+                            'occupation': person.occupation,
+                            'wants_accommodation': person.wants_accommodation}
+                    if person.occupation == 'Staff':
+                        person = Staff(**data)
+                        self.staff.append(person)
+                    if person.occupation == 'Fellow':
+                        person = Fellow(**data)
+                        self.fellows.append(person)
+            else:
+                print(colored('No saved people in the database', 'red'))
+            if saved_rooms:
+                self.all_people = self.staff + self.fellows
+                for room in saved_rooms:
+                    if room.room_type == 'office':
+                        if room.room_name \
+                                not in [room.room_name for room in self.offices]:
+                            space = Office(room.room_name, room.room_type)
+                            occupants = [person_id for person_id in
+                                         room.room_occupants.split(",")
+                                         if person_id]
+                            self.all_rooms.append(space)
+                            if occupants:
+                                for occupant in occupants:
+                                    person = self.get_person_object(
+                                        occupant, self.all_people)
+                                    space.occupants.append(person)
+                    if room.room_type == 'livingspace':
+                        if room.room_name \
+                                not in [room.room_name for room in self.offices]:
+                            space = LivingSpace(room.room_name, room.room_type)
+                            occupants = [person_id for person_id in
+                                         room.room_occupants.split(",") if person_id]
+                            self.all_rooms.append(space)
+                            if occupants:
+                                for occupant in occupants:
+                                    person = self.get_person_object(occupant, self.all_people)
+                                    space.occupants.append(person)
+                print(colored('Rooms successfully loaded.', 'cyan'))
+            else:
+                print(colored('No saved rooms in the database.', 'red'))
+            if saved_unallocated:
+                for person in saved_unallocated:
+                    if person.room_unallocated == 'Office' and\
+                            person not in self.office_unallocated:
+                            self.all_people = self.staff + self.fellows
+                            person_object = self.get_person_object(
+                                person.person_id, self.all_people)
+                            self.office_unallocated.append(person_object)
+                    if person.room_unallocated == 'Living space' and\
+                            person not in self.living_unallocated:
+                            person_object = self.get_person_object(
+                                person.person_id, self.fellows)
+                            self.living_unallocated.append(person_object)
+                print(colored('Unallocated people successfully loaded.', 'cyan'))
+            else:
+                print(colored(
+                    'No saved unallocated people in the database.', 'red'))
 
     @staticmethod
     def get_person_object(person_id, person_location):
