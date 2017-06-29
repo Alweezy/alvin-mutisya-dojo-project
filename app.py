@@ -99,7 +99,11 @@ class Interactive (cmd.Cmd):
             first_name = args["<first_name>"]
             last_name = args["<last_name>"]
             occupation = "Staff"
-            dojo.add_person(first_name, last_name, occupation)
+            if args["<wants_space>"]:
+                wants_space = args["<wants_space>"]
+                dojo.add_person(first_name, last_name, occupation, wants_space)
+            else:
+                dojo.add_person(first_name, last_name, occupation)
 
     @docopt_cmd
     def do_print_room(self, args):
