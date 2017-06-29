@@ -27,7 +27,7 @@ class Room:
 class Office(Room):
 
     def __init__(self, room_name, room_type):
-        super(Office, self).__init__(room_name, room_type, room_capacity=6)
+        super(Office, self).__init__(room_name, room_type='office', room_capacity=6)
 
     def __repr__(self):
         return self.room_name
@@ -36,7 +36,7 @@ class Office(Room):
 class LivingSpace(Room):
 
     def __init__(self, room_name, room_type):
-        super(LivingSpace, self).__init__(room_name, room_type, room_capacity=4)
+        super(LivingSpace, self).__init__(room_name, room_type='livingspace', room_capacity=4)
 
     def __repr__(self):
         return self.room_name
