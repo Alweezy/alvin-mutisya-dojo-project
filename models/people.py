@@ -51,8 +51,8 @@ class Fellow(Person):
 class Staff(Person):
     def __init__(self, first_name, last_name, occupation, wants_accommodation=None, id=None, *args, **kwargs):
         super(Staff, self).__init__(first_name, last_name, occupation='Staff')
-        self.id = id or self.generate_person_id()
         self.wants_accommodation = wants_accommodation
+        self.id = id or self.generate_person_id()
 
     def __repr__(self):
         return self.person_name
