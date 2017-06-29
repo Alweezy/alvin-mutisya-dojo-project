@@ -81,17 +81,17 @@ class Dojo(object):
         :param wants_accommodation: An optional string representing a
         fellow's accommodation
         """
-
         self.first_name = first_name
         self.last_name = last_name
         self.occupation = occupation
-        self. wants_accommodation = wants_accommodation
+        self.wants_accommodation = wants_accommodation
         self.person_name = self.first_name + self.last_name
         if occupation == 'Fellow':
             if self.person_name not in [person.first_name + person.last_name
                                         for person in self.fellows]:
                 person = Fellow(
                     first_name, last_name, occupation, wants_accommodation)
+                print(colored(person.wants_accommodation, 'yellow'))
                 self.fellows.append(person)
                 print(white_line)
                 print(colored(first_name + ' ' + last_name +
@@ -132,7 +132,7 @@ class Dojo(object):
                                       ' has been added to '
                                               + work_room, 'cyan'))
                     else:
-                        # Add per
+                        # Add person unallocated if no office space.
                         self.office_unallocated.append(person)
                         print(white_line)
                         print(colored('Office space unavailable, '
@@ -157,34 +157,88 @@ class Dojo(object):
                 print(white_line)
                 print(colored('A fellow with that name already exists',
                               'red'))
+        # if occupation == 'Staff':
+        #     if self.person_name not in [person.first_name + person.last_name
+        #                                 for person in self.staff]:
+        #         person = Staff(first_name, last_name, occupation, wants_accommodation=wants_accommodation)
+        #         print(colored(person.wants_accommodation, 'yellow'))
+        #         print(white_line)
+        #         print(colored(first_name + ' ' + last_name +
+        #                       ' has been added successfully!', 'cyan'))
+        #         self.staff.append(person)
+        #         work_room = self.get_room(self.offices)
+        #         if work_room:
+        #             for room in self.offices:
+        #                 if room.room_name == work_room:
+        #                     room.occupants.append(person)
+        #                     print(white_line)
+        #                     print(colored('A ' + person.occupation + ' ' +
+        #                                   person.first_name +
+        #                                   ' has been added to ' +
+        #                                   work_room, 'cyan'))
+        #         else:
+        #             # Add person to a list of unallocated on missing office.
+        #             self.office_unallocated.append(person)
+        #             print(white_line)
+        #             print(colored('Office space unavailable, '
+        #                           'added to office waiting list', 'red'))
+        #     else:
+        #         print(white_line)
+        #         print(colored('A member of staff with that '
+        #                       'name already exists!', 'red'))
         if occupation == 'Staff':
             if self.person_name not in [person.first_name + person.last_name
                                         for person in self.staff]:
-                person = Staff(first_name, last_name, occupation)
+                person = Staff(
+                    first_name, last_name, occupation, wants_accommodation)
+                print(colored(person.wants_accommodation, 'yellow'))
+                self.staff.append(person)
                 print(white_line)
                 print(colored(first_name + ' ' + last_name +
                               ' has been added successfully!', 'cyan'))
-                self.staff.append(person)
-                work_room = self.get_room(self.offices)
-                if work_room:
-                    for room in self.offices:
-                        if room.room_name == work_room:
-                            room.occupants.append(person)
-                            print(white_line)
-                            print(colored('A ' + person.occupation + ' ' +
-                                          person.first_name +
-                                          ' has been added to ' +
-                                          work_room, 'cyan'))
+                accommodation = person.wants_accommodation
+                if accommodation is None or accommodation != 'Y':
+                    work_room = self.get_room(self.offices)
+                    # if there is no available office space
+                    if work_room:
+                        for room in self.offices:
+                            if room.room_name == work_room:
+                                room.occupants.append(person)
+                                print(white_line)
+                                print(colored('A ' + person.occupation + ' '
+                                      + person.first_name +
+                                              ' has been added to '
+                                      + work_room, 'cyan'))
+                    else:
+                        # Add person unallocated if no office space.
+                        self.office_unallocated.append(person)
+                        print(white_line)
+                        print(colored('Office space unavailable, '
+                                      'added to office waiting list', 'red'))
                 else:
-                    # Add person to a list of unallocated on missing office.
-                    self.office_unallocated.append(person)
-                    print(white_line)
-                    print(colored('Office space unavailable, '
-                                  'added to office waiting list', 'red'))
+                    print(colored('Staff cannot get accommodation!', 'red'))
+                    # Add person unallocated if no office space.
+                    work_room = self.get_room(self.offices)
+                    # if there is no available office space
+                    if work_room:
+                        for room in self.offices:
+                            if room.room_name == work_room:
+                                room.occupants.append(person)
+                                print(white_line)
+                                print(colored('A ' + person.occupation +
+                                              ' ' + person.first_name +
+                                      ' has been added to '
+                                              + work_room, 'cyan'))
+                    else:
+                        # Add person unallocated if no office space.
+                        self.office_unallocated.append(person)
+                        print(white_line)
+                        print(colored('Office space unavailable, '
+                                      'added to office waiting list', 'red'))
             else:
                 print(white_line)
-                print(colored('A member of staff with that '
-                              'name already exists!', 'red'))
+                print(colored('A member of staff with that name already exists',
+                              'red'))
 
     def print_room(self, room_name):
         """Gets a room name as an argument and returns a status of the room's
