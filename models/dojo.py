@@ -91,7 +91,6 @@ class Dojo(object):
                                         for person in self.fellows]:
                 person = Fellow(
                     first_name, last_name, occupation, wants_accommodation)
-                print(colored(person.wants_accommodation, 'yellow'))
                 self.fellows.append(person)
                 print(white_line)
                 print(colored(first_name + ' ' + last_name +
@@ -157,41 +156,11 @@ class Dojo(object):
                 print(white_line)
                 print(colored('A fellow with that name already exists',
                               'red'))
-        # if occupation == 'Staff':
-        #     if self.person_name not in [person.first_name + person.last_name
-        #                                 for person in self.staff]:
-        #         person = Staff(first_name, last_name, occupation, wants_accommodation=wants_accommodation)
-        #         print(colored(person.wants_accommodation, 'yellow'))
-        #         print(white_line)
-        #         print(colored(first_name + ' ' + last_name +
-        #                       ' has been added successfully!', 'cyan'))
-        #         self.staff.append(person)
-        #         work_room = self.get_room(self.offices)
-        #         if work_room:
-        #             for room in self.offices:
-        #                 if room.room_name == work_room:
-        #                     room.occupants.append(person)
-        #                     print(white_line)
-        #                     print(colored('A ' + person.occupation + ' ' +
-        #                                   person.first_name +
-        #                                   ' has been added to ' +
-        #                                   work_room, 'cyan'))
-        #         else:
-        #             # Add person to a list of unallocated on missing office.
-        #             self.office_unallocated.append(person)
-        #             print(white_line)
-        #             print(colored('Office space unavailable, '
-        #                           'added to office waiting list', 'red'))
-        #     else:
-        #         print(white_line)
-        #         print(colored('A member of staff with that '
-        #                       'name already exists!', 'red'))
         if occupation == 'Staff':
             if self.person_name not in [person.first_name + person.last_name
                                         for person in self.staff]:
                 person = Staff(
                     first_name, last_name, occupation, wants_accommodation)
-                print(colored(person.wants_accommodation, 'yellow'))
                 self.staff.append(person)
                 print(white_line)
                 print(colored(first_name + ' ' + last_name +
