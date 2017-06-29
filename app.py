@@ -25,7 +25,7 @@ from docopt import docopt, DocoptExit
 from termcolor import cprint, colored
 from pyfiglet import figlet_format
 from colorama import init
-from dojo import Dojo
+from models.dojo import Dojo
 init(strip=not sys.stdout.isatty())
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 
@@ -57,6 +57,7 @@ def docopt_cmd(func):
     fn.__doc__ = func.__doc__
     fn.__dict__.update(func.__dict__)
     return fn
+
 
 dojo = Dojo()
 
@@ -148,6 +149,7 @@ class Interactive (cmd.Cmd):
         """Quits out of the interactive mode"""
         print(colored(('-' * 28) + 'BYE' + ('-' * 28), 'yellow'))
         exit()
+
 
 opt = docopt(__doc__, sys.argv[1:])
 
