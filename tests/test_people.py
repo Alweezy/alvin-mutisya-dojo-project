@@ -1,5 +1,5 @@
-from models.people import Person, Fellow, Staff
 from unittest import TestCase
+from models.people import Person, Fellow, Staff
 
 
 class FellowTestCases(TestCase):
