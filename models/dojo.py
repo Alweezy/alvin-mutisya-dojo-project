@@ -237,33 +237,36 @@ class Dojo(object):
         """Gets all the people in the dojo facility who have been awarded room
         and office allocations.
         """
-        # writing to file
-        write_to_file = ''
-        for room in self.all_rooms:
-            if room.occupants:
-                print(colored(room.room_name +
-                              '(' + room.room_type.title() + ')', 'cyan'))
-                write_to_file += room.room_name + '\n'
-                print(white_line)
-                print('Employee id' + '    ' + 'Employee Name')
-                print(white_line)
-                for person in room.occupants:
-                    person_name = person.first_name + ' ' + person.last_name
-                    write_to_file += person_name + '\n'
-                    print(person.id + '           ' + person.first_name +
-                          ' ' + person.last_name)
+        if self.all_rooms:
+            # writing to file
+            write_to_file = ''
+            for room in self.all_rooms:
+                if room.occupants:
+                    print(colored(room.room_name +
+                                  '(' + room.room_type.title() + ')', 'cyan'))
+                    write_to_file += room.room_name + '\n'
+                    print(white_line)
+                    print('Employee id' + '    ' + 'Employee Name')
+                    print(white_line)
+                    for person in room.occupants:
+                        person_name = person.first_name + ' ' + person.last_name
+                        write_to_file += person_name + '\n'
+                        print(person.id + '           ' + person.first_name +
+                              ' ' + person.last_name)
 
-                # check if user has opted to print list
-                if filename:
-                    file_name = filename + ".txt"
-                    file_output = open(file_name, 'w')
-                    file_output.write(write_to_file)
-                    file_output.close()
-                    return
-            else:
-                print(colored(room.room_name + '('
-                              + room.room_type.title() + ')', 'cyan'))
-                print(colored('This room has no occupants', 'red'))
+                    # check if user has opted to print list
+                    if filename:
+                        file_name = filename + ".txt"
+                        file_output = open(file_name, 'w')
+                        file_output.write(write_to_file)
+                        file_output.close()
+                        return
+                else:
+                    print(colored(room.room_name + '('
+                                  + room.room_type.title() + ')', 'cyan'))
+                    print(colored('This room has no occupants', 'red'))
+        else:
+            print(colored('There are no allocations in system', 'red'))
 
     def print_unallocated(self, filename):
         # collect all file info as a string
