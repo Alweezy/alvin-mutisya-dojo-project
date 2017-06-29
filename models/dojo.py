@@ -32,11 +32,11 @@ class Dojo(object):
         available_rooms = [room for room in rooms if len(room.occupants)
                            < room.room_capacity]
         # return False if all rooms are full
-        if len(available_rooms) < 1:
-            return False
+        if available_rooms:
+            chosen_room = random.choice(available_rooms)
+            return chosen_room.room_name
+        return False
         # choose a room from the list of available rooms.
-        chosen_room = random.choice(available_rooms)
-        return chosen_room.room_name
 
     def create_room(self, room_name, room_type):
         """Creates a room in the system, either office or living space.
