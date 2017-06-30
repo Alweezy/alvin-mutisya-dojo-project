@@ -113,6 +113,10 @@ class AddPersonTestCases(unittest.TestCase):
         new_unallocated = len(self.dojo.office_unallocated)
         self.assertEqual((new_unallocated - initial_unallocated), 0)
 
+    def test_staff_wants_accommodation(self):
+        person = self.dojo.add_person('Bill', 'Slay', 'Staff', 'Y')
+        self.assertEqual(person, 'Staff cannot get accommodation')
+
 
 class TestReallocationTestCases(unittest.TestCase):
     """Tests all the functionality in reallocating an Andelan from their current room;
@@ -136,7 +140,7 @@ class TestReallocationTestCases(unittest.TestCase):
         self.dojo.all_rooms[0].room_type
         self.dojo.create_room('Hogwarts', 'office')
         initial_room_capacity = len(self.dojo.all_rooms[2].occupants)
-        self.dojo.reallocate_person('stf50', 'Hogwarts')
+        self.dojo.reallocate_person('stf53', 'Hogwarts')
         new_room_capacity = len(self.dojo.all_rooms[2].occupants)
         self.assertEqual((new_room_capacity - initial_room_capacity), 1)
 
