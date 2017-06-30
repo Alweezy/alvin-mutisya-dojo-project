@@ -114,8 +114,11 @@ class AddPersonTestCases(unittest.TestCase):
         self.assertEqual((new_unallocated - initial_unallocated), 0)
 
     def test_staff_wants_accommodation(self):
-        person = self.dojo.add_person('Bill', 'Slay', 'Staff', 'Y')
-        self.assertEqual(person, 'Staff cannot get accommodation')
+        initial_room_capacity = len(self.dojo.all_rooms[0].occupants)
+        print(self.dojo.all_rooms[1].room_type)
+        self.dojo.add_person('Bill', 'Slay', 'Staff', 'Y')
+        new_room_capacity = len(self.dojo.all_rooms[1].occupants)
+        self.assertEqual((new_room_capacity - initial_room_capacity), 0)
 
 
 class TestReallocationTestCases(unittest.TestCase):
