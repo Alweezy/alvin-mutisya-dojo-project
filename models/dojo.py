@@ -583,6 +583,30 @@ class Dojo(object):
             if person.id == person_id:
                 return person
 
+    def pre_load_state(self, db_name):
+        """Cautions the user against loading state with current data in system"""
+        self.all_people = self.fellows + self.staff
+        self.all_rooms = self.livingrooms + self.offices
+        if not (self.all_rooms or self.all_people):
+            self.load_state(db_name)
+        else:
+            print(colored('This action will wipe all existing data', 'red'))
+            res = raw_input('Would you like to continue[y/n]?: ')
+
+            if res.lower() == 'y':
+                self.offices = []
+                self.livingrooms = []
+                self.staff = []
+                self.fellows = []
+                self.all_rooms = []
+                self.office_unallocated = []
+                self.living_unallocated = []
+                self.allocated = []
+                self.all_people = self.fellows + self.staff
+                self.load_state(db_name)
+            else:
+                print(colored('load state exited with no changes', 'cyan'))
+
 
 
 
