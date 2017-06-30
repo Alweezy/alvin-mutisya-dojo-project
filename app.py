@@ -147,7 +147,7 @@ class Interactive (cmd.Cmd):
     def do_load_state(self, args):
         """Usage: load_state <sqlite_database>"""
         db_name = args["<sqlite_database>"]
-        dojo.load_state(db_name)
+        dojo.pre_load_state(db_name)
 
     def do_quit(self, arg):
         """Quits out of the interactive mode"""
