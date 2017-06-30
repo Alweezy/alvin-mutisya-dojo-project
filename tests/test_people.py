@@ -13,7 +13,7 @@ class FellowTestCases(TestCase):
         self.assertEqual(self.fellow.first_name + ' ' + self.fellow.last_name, 'Nadia Alexis')
 
     def test_fellow_id_generation(self):
-        self.assertEqual(self.fellow.id, 'fel57')
+        self.assertEqual(self.fellow.id, 'fel60')
 
 
 class StaffTestCases(TestCase):
@@ -27,4 +27,4 @@ class StaffTestCases(TestCase):
         self.assertEqual(self.staff.first_name + ' ' + self.staff.last_name, 'Nadia Alexis')
 
     def test_staff_id_generation(self):
-        self.assertEqual(self.staff.id, 'stf62')
+        self.assertEqual(self.staff.id, 'stf65')
