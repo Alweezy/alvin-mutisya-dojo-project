@@ -198,6 +198,7 @@ class Dojo(object):
                                               ' ' + person.first_name +
                                       ' has been added to '
                                               + work_room, 'cyan'))
+                        return'Staff cannot get accommodation'
                     else:
                         # Add person unallocated if no office space.
                         self.office_unallocated.append(person)
@@ -215,12 +216,17 @@ class Dojo(object):
         :param room_name: A string representing  the name of the room.
         """
         # check if the requested room is available in created rooms.
+        data = ""
         if room_name not in [room.room_name for room in self.all_rooms]:
             print(white_line)
             print(colored('The room you entered is not in the system!',
                           'red'))
+            return 'The room you entered is not in the system!'
         for room in self.all_rooms:
             if room.room_name == room_name:
+                # data += (
+                #     "{0} - {1}\n".format(room.room_name, room.room_type))
+                # data += white_line + '\n'
                 print(room.room_name + '(' + room.room_type.title() + ')')
                 print(white_line)
                 print('Employee id' + '    ' + 'Employee Name')
@@ -230,8 +236,11 @@ class Dojo(object):
                     for person in room.occupants:
                         print(person.id + '           ' +
                               person.first_name + ' ' + person.last_name)
+                        data += person.first_name + ' ' + person.last_name + '\n'
                 else:
                     print(colored('Room has currently no occupants!', 'red'))
+                    data += 'Room has currently no occupants!.'
+        return data
 
     def print_allocation(self, filename):
         """Gets all the people in the dojo facility who have been awarded room
@@ -589,6 +598,7 @@ class Dojo(object):
         self.all_rooms = self.livingrooms + self.offices
         if not (self.all_rooms or self.all_people):
             self.load_state(db_name)
+            return'load successful'
         else:
             print(colored('This action will wipe all existing data', 'red'))
             res = raw_input('Would you like to continue[y/n]?: ')
@@ -606,6 +616,7 @@ class Dojo(object):
                 self.load_state(db_name)
             else:
                 print(colored('load state exited with no changes', 'cyan'))
+                return 'load state exited with no changes'
 
 
 
