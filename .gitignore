@@ -88,8 +88,9 @@ ENV/
 # Rope project settings
 .ropeproject
 
-# .idea/tasks.xml
-# .idea/dictionaries
+.idea
+.idea/tasks.xml
+.idea/dictionaries
 
 # Sensitive or high-churn files:
 # .idea/dataSources.ids
@@ -124,3 +125,5 @@ atlassian-ide-plugin.xml
 com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
+.idea*
+.DS_Store*
