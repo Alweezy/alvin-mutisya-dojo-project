@@ -38,6 +38,12 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+-run the interactive shell
+
+```
+python app.py -i
+```
+
 
 ---
 
