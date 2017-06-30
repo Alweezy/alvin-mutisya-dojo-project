@@ -44,6 +44,11 @@ class TestsCasesRoom(unittest.TestCase):
         new_room_count = len(self.rooms)
         self.assertEqual(new_room_count - initial_room_count, 0)
 
+    def test_print_room_with_no_occupants(self):
+        self.dojo.create_room('Humus', 'livingspace')
+        request = self.dojo.print_room('Humus')
+        self.assertEqual(request, 'Room has currently no occupants!.')
+
 
 class AddPersonTestCases(unittest.TestCase):
     """Tests all the functionality of create_room method.
